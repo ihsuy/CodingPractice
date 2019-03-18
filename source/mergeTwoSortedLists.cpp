@@ -151,8 +151,7 @@ ListNode* mergeTwoLists(ListNode* l1, ListNode* l2)
 		head = head->next;
 	}
 
-	ListNode* temp = (l1 == nullptr)?l2:l1;
-	head->next = temp;
+	head->next = (l1 == nullptr)?l2:l1;;
 	return result->next;
 }
 
