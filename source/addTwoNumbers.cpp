@@ -21,6 +21,55 @@ void appendToEnd(ListNode* head, const int& val)
 }
 
 ListNode* addTwoNumbers(ListNode* l1, ListNode* l2)
+{	// a much shorter and cleaner version
+	ListNode* result = new ListNode(-1);
+	ListNode* temp = result;
+
+	int carry = 0;
+
+	while (l1 != nullptr and l2 != nullptr)
+	{
+		int val = l1->val + l2->val + carry;
+
+		carry = val / 10;
+		val %= 10;
+
+		temp->next = new ListNode(val);
+		temp = temp->next;
+
+		l1 = l1->next;
+		l2 = l2->next;
+	}
+
+	if (carry == 0)
+	{
+		temp->next = (l1 == nullptr) ? l2 : l1;
+	}
+	else
+	{
+		ListNode* extra = (l1 == nullptr) ? l2 : l1;
+
+		while (extra != nullptr)
+		{
+			int val = extra->val + carry;
+			carry = val / 10;
+			val %= 10;
+
+			temp->next = new ListNode(val);
+			temp = temp->next;
+
+			extra = extra->next;
+		}
+		if(carry != 0)
+		{
+			temp->next = new ListNode(1);
+		}
+	}
+
+	return result->next;
+}
+
+ListNode* addTwoNumbers_badVersion(ListNode* l1, ListNode* l2)
 {
 	ListNode *temp1 = l1, *temp2 = l2;
 
