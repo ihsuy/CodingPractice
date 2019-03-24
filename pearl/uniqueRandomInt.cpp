@@ -42,7 +42,11 @@ void arrSwap(vector<int>& arr, const int& i, const int& j)
 
 vector<int> uniqueRandom(const int& k, const int& n)
 {
-	srand(time(NULL));
+	if(k > n)
+	{
+		throw runtime_error("invalid k value: k has to be less than n");
+	}
+	srand(chrono::high_resolution_clock::now().time_since_epoch().count());
 
 	vector<int> nums;
 	nums.reserve(n);
@@ -54,17 +58,16 @@ vector<int> uniqueRandom(const int& k, const int& n)
 
 	for(int i = 0; i < k; ++i)
 	{
-		int j = rand()%(k-i);
-		cout << j << endl;
+		int j = rand()%(n-i);
 		arrSwap(nums, i, i+j);
 	}
 
-	return nums;
+	return vector<int>(nums.begin(), nums.begin()+k);
 }
 
 int main()
 {
-	vector<int> r = uniqueRandom(100, 100);
+	vector<int> r = uniqueRandom(10, 10);
 	inspect<vector<int>>(r);
 
 	return 0;
