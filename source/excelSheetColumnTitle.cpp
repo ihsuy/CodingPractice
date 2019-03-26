@@ -30,59 +30,27 @@ inline void inspect(T& t){typename T::iterator i1 = t.begin(), i2 = t.end(); whi
 using namespace std;
 
 /*
-Given a non-empty array of integers, return the third maximum number in this array. 
-If it does not exist, return the maximum number. The time complexity must be in O(n).
+Given a positive integer, return its corresponding 
+column title as appear in an Excel sheet.
 */
 
-int thirdMax(vector<int>& nums) 
+string convertToTitle(int n)
 {
-	int m1 = INT_MIN, m2 = INT_MIN, m3 = INT_MIN;
+	string res;
 
-
-
-	bool test_Case_Makers_Brain_Is_F__ked = TRUE;
-
-
-
-	unordered_set<int> counterF__k;
-
-	for(int i = 0; i < nums.size(); ++i)
+	while(n > 0)
 	{
-		int cur_val = nums[i];
-		counterF__k.insert(cur_val);
-
-		if(cur_val > m1)
-		{
-			m3 = m2;
-			m2 = m1;
-			m1 = cur_val;
-		}
-		else if(cur_val > m2 and cur_val != m1)
-		{
-			m3 = m2;
-			m2 = cur_val;
-		}
-		else if(cur_val > m3 and cur_val != m1 and cur_val != m2)
-		{
-			m3 = cur_val;
-		}
+		char d = 'A' + ((n%26==0)?25:(n%26-1));
+		res = d + res;
+		n = (n-1)/26;
 	}
-	if(counterF__k.size()<3)
-	{
-		return m1;
-	} 
-	return m3;
+	return res;
 }
 
 int main()
 {
-	vector<int> v{ 1,2,INT_MIN};
-
-	cout << "third maximum number:\n" << thirdMax(v) << '\n';
-
-	sort(v.begin(), v.end());
-
-	inspect<vector<int>>(v);
+	for(int i = 690; i < 710; ++i)
+		cout << convertToTitle(i) << '\n';
 
 	return 0;
 }
