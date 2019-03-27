@@ -34,9 +34,9 @@ Given a string, find the first non-repeating character in
 it and return it's index. If it doesn't exist, return -1.
 */
 
-int firstUniqChar(string s) 
+int firstUniqChar(const string& s) 
 {	// use list for constant time removal
-	
+
 	list<int> order;
 	unordered_map<int, list<int>::iterator> tracker; 
 	unordered_set<int> ignore;
@@ -45,17 +45,18 @@ int firstUniqChar(string s)
 	{
 		auto cur = s[i];
 		if(ignore.count(cur) != 0)
-		{
+		{	// skip if cur is in ignore list
 			continue;
 		}
 
 		if(tracker.count(cur)==0)
-		{
+		{	// if first seen, insert into candidate list
 			order.push_back(i);
 			tracker[cur] = prev(order.end()); 
 		}
 		else
-		{
+		{	// have seen this before,
+			// remove it from candidate, and add to ignore list
 			order.erase(tracker[cur]);
 			tracker.erase(cur);
 			ignore.insert(cur);
@@ -63,9 +64,10 @@ int firstUniqChar(string s)
 	}
 
 	if(order.size()==0)
-	{
+	{	// no unique character
 		return -1;
 	}
+
 	return order.front();
 }
 
