@@ -38,7 +38,7 @@ int firstUniqChar(const string& s)
 {	// use list for constant time removal
 
 	list<int> order;
-	unordered_map<int, list<int>::iterator> tracker; 
+	unordered_map<int, list<int>::iterator> candidates; 
 	unordered_set<int> ignore;
 
 	for(int i = 0; i < s.length(); ++i)
@@ -49,16 +49,16 @@ int firstUniqChar(const string& s)
 			continue;
 		}
 
-		if(tracker.count(cur)==0)
+		if(candidates.count(cur)==0)
 		{	// if first seen, insert into candidate list
 			order.push_back(i);
-			tracker[cur] = prev(order.end()); 
+			candidates[cur] = prev(order.end()); 
 		}
 		else
 		{	// have seen this before,
 			// remove it from candidate, and add to ignore list
-			order.erase(tracker[cur]);
-			tracker.erase(cur);
+			order.erase(candidates[cur]);
+			candidates.erase(cur);
 			ignore.insert(cur);
 		}
 	}
@@ -74,7 +74,7 @@ int firstUniqChar(const string& s)
 
 int main()
 {
-	string s = "";
+	string s = "yushiqiu";
 
 	cout << firstUniqChar(s) << endl;
 
