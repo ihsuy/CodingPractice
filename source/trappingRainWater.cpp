@@ -131,6 +131,13 @@ of each bar is 1, compute how much water it is able to trap after raining.
 // 	return result;
 // }
 
+// static const auto __ = []() {
+// std::ios::sync_with_stdio(false);
+// std::cin.tie(nullptr);
+// return nullptr;
+// }();
+
+
 // <<<<<<<<<<< Solutions <<<<<<<<<<<
 // brute force
 
@@ -217,10 +224,12 @@ int trap_memo(const vector<int>& height)
 		{
 			leftMax = height[i];
 		}
+
 		if(height[j] > rightMax)
 		{
 			rightMax = height[j];
 		}
+
 		lr_max[i].first = leftMax;
 		lr_max[j].second = rightMax;
 	}
@@ -230,10 +239,7 @@ int trap_memo(const vector<int>& height)
 	for(int i = 0; i < len; ++i)
 	{
 		int h = min(lr_max[i].first,lr_max[i].second)-height[i];
-		if(h>0)
-		{
-			result += h;
-		}
+		result += h;
 	}
 
 	return result;
