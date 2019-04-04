@@ -76,19 +76,44 @@ void trimSides(vector<int>& h)
 	auto right = rfind_FirstNoneZero(h)+1;
 
 	h = vector<int>(left, right);
-
 }
 
-void decrement_noneZero(int& val)
+
+int min_nonZeroElement(vector<int>::iterator begin, vector<int>::iterator end)
 {
-	if(val!=0)
+	int min_ele = INT_MAX;
+	for(;begin != end; ++begin)
 	{
-		val--;
+		if(*begin != 0 and *begin < min_ele)
+		{
+			min_ele = *begin;
+		}
 	}
+	return (min_ele==INT_MAX)?0:min_ele;
+}
+
+int fillWater(vector<int>& h)
+{	
+	int decrease_amount = min_nonZeroElement(h.begin(), h.end());
+	int zero_counter = 0;
+	for(int i = 0; i < h.size(); ++i)
+	{
+		if(h[i] == 0)
+		{
+			zero_counter++;
+		}
+		else
+		{
+			h[i] -= decrease_amount;
+		}
+	}
+
+	return zero_counter*decrease_amount;
 }
 
 int trap_simulation(vector<int> height) 
-{
+{	// calculate the result by actually simulate the filling process
+	// this is a n^2 algorithm
 	if(height.size() == 0)
 	{
 		return 0;
@@ -102,9 +127,7 @@ int trap_simulation(vector<int> height)
 	{
 		inspect<vector<int>>(height);
 
-		result += count(height.begin(), height.end(), 0);
-
-		for_each(height.begin(), height.end(), decrement_noneZero);
+		result += fillWater(height);
 
 		trimSides(height);
 	}
@@ -114,8 +137,8 @@ int trap_simulation(vector<int> height)
 
 int main()
 {
-	// vector<int> v{0,1,0,2,1,0,1,3,2,1,2,1};
-	vector<int> v{0,0,0};
+	//vector<int> v{0,1,0,2,1,0,1,3,2,1,2,1};
+	vector<int> v{2,0,2};
 
 	cout << trap_simulation(v) << '\n';
 	//for_each(v.begin(), v.end(), decrement_noneZero);
