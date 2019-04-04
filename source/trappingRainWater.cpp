@@ -140,13 +140,53 @@ int trap_bf(const vector<int>& height)
 	// find the highest position on the left and right of it
 	// respectively. take the smaller one and substract current height
 	int result = 0;
-	for (auto ite = height.begin(); ite != height.end(); ++ite)
+	for (auto ite = height.begin()+1; ite != height.end()-1; ++ite)
 	{
-		int leftMax = (ite == height.begin()) ? 0 : *max_element(height.begin(), ite);
-		int rightMax = (ite == height.end() - 1) ? 0 : *max_element(ite + 1, height.end());
+		int leftMax = *max_element(height.begin(), ite);
+		int rightMax = *max_element(ite + 1, height.end());
 
 		int h = ((leftMax > rightMax) ? rightMax : leftMax) - *ite ;
 
+		if (h > 0)
+		{
+			result += h;
+		}
+	}
+
+	return result;
+}
+
+int trap_bf_improved(const vector<int>& height)
+{	// find exactly how many water can a position trap.
+	// Iterate over the vector, then for every position
+	// find the highest position on the left and right of it
+	// respectively. take the smaller one and substract current height
+	int result = 0;
+
+	int leftMax = height[0];
+	int rightMax = *max_element(height.begin()+2, height.end());
+
+	for (auto ite = height.begin()+1; ite != height.end()-1; ++ite)
+	{
+		int c = 0;
+		if(*ite == rightMax)
+		{
+			rightMax = *max_element(ite+1, height.end());
+			c++;
+		}
+
+		if(*ite > leftMax)
+		{
+			leftMax = *ite;
+			c++;
+		}
+
+		if(c)
+		{
+			continue;
+		}
+
+		int h = ((leftMax > rightMax) ? rightMax : leftMax) - *ite ;
 		if (h > 0)
 		{
 			result += h;
@@ -161,7 +201,9 @@ int main()
 	vector<int> v{10527, 740, 9013, 1300, 29680, 4898, 13993, 15213, 18182, 24254, 3966, 24378, 11522, 9190};
 	vector<int> v2{0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1};
 
-	cout << "brute force result:" << trap_bf(v2) << '\n';
+	cout << "brute force result:" << trap_bf(v) << '\n';
+
+	cout << "brute force - improved result:" << trap_bf_improved(v) << '\n';
 
 	return 0;
 }
