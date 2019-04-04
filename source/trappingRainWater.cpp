@@ -131,11 +131,11 @@ of each bar is 1, compute how much water it is able to trap after raining.
 // 	return result;
 // }
 
-// static const auto __ = []() {
-// std::ios::sync_with_stdio(false);
-// std::cin.tie(nullptr);
-// return nullptr;
-// }();
+static const auto __ = []() {
+std::ios::sync_with_stdio(false);
+std::cin.tie(nullptr);
+return nullptr;
+}();
 
 
 // <<<<<<<<<<< Solutions <<<<<<<<<<<

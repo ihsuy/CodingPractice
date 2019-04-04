@@ -36,14 +36,57 @@ Given a string, find the length of the longest substring
 T that contains at most k distinct characters.
 */
 
-int lengthOfLongestSubstringKDistinct(string s, int k) 
+int lengthOfLongestSubstringKDistinct(const string& s, int k)
 {
+	if (s.length() == 0)
+	{
+		return 0;
+	}
+	unordered_set<char> unique_char;
+	vector<int> changePoints;
+	vector<int> unique_count;
 
+	for (int i = 0; i < s.length(); ++i)
+	{
+		char ch = s[i];
+		
+		if (unique_char.count(ch) == 0)
+		{
+			cout << "i: " << i << '\n';
+			changePoints.push_back(i);
+			unique_char.insert(ch);
+		}
+		unique_count.push_back(unique_char.size());
+	}
+
+	changePoints.push_back(s.length());
+
+	if (k > unique_char.size())
+	{
+		k = unique_char.size();
+	}
+
+	inspect<vector<int>>(changePoints);
+	inspect<vector<int>>(unique_count);
+
+	int result = 0;
+	for (int i = 0, j = k; i < changePoints.size() - k; ++i, ++j)
+	{
+		int diff = changePoints[j] - changePoints[i];
+		if (diff > result)
+		{
+			result = diff;
+		}
+	}
+	return result;
 }
 
 int main()
 {
+	string s = "aba";
+	int k = 1 ;
 
+	cout << lengthOfLongestSubstringKDistinct(s, k) << '\n';
 
 	return 0;
 }
