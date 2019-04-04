@@ -121,7 +121,7 @@ int trap_simulation(vector<int> height)
 
 	while (p.first != p.second)
 	{
-		//inspect<vector<int>>(height);
+		inspect<vector<int>>(height);
 		result += fillWater(p.first, p.second);
 		p = trimSides(p.first, p.second);
 	}
