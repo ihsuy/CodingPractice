@@ -208,24 +208,25 @@ int trap_bf_improved(const vector<int>& height)
 	return result;
 }
 
-int trap_memo(const vector<int>& height)
+int trap_bf_memo(const vector<int>& height)
 {	// pre-calculate and memorize leftmax and rightmax
-	// then use the stored information to do the job
-	// just like the previous methods, however this runs in O(n)
-	vector<pair<int, int>> lr_max(height.size(), pair<int, int>(0,0));
+	// then use the stored information to calculate
+	// just like the previous methods,
+	// however this algorithms runs in O(n)
+	vector<pair<int, int>> lr_max(height.size(), pair<int, int>(0, 0));
 
 	int len = height.size();
 
 	int leftMax = 0, rightMax = 0;
 
-	for(int i = 0, j = len-1; i < len; ++i, --j)
+	for (int i = 0, j = len - 1; i < len; ++i, --j)
 	{
-		if(height[i] > leftMax)
+		if (height[i] > leftMax)
 		{
 			leftMax = height[i];
 		}
 
-		if(height[j] > rightMax)
+		if (height[j] > rightMax)
 		{
 			rightMax = height[j];
 		}
@@ -233,15 +234,71 @@ int trap_memo(const vector<int>& height)
 		lr_max[i].first = leftMax;
 		lr_max[j].second = rightMax;
 	}
-	
+
 	int result = 0;
 
-	for(int i = 0; i < len; ++i)
+	for (int i = 0; i < len; ++i)
 	{
-		int h = min(lr_max[i].first,lr_max[i].second)-height[i];
+		int h = min(lr_max[i].first, lr_max[i].second) - height[i];
 		result += h;
 	}
 
+	return result;
+}
+
+int trap_optimal(const vector<int>& height)
+{	// this method iterate from 2 ends of "height"
+	// Prepare 2 pointers left and right
+	// use the fact that if (*left <= *right and *left < leftmax)
+	// it can trap (leftmax - *left) amount of water.
+	// Since if *left is less than leftmax, we know that there's a wall
+	// on the left that is higher than our current position
+	// in addition, since we check *left <= *right first, we are guaranteed to have
+	// another wall on the right thats at least as high as leftmax
+	// so we know that we can trap water at the current location
+	// between 2 walls that are both not shorter than leftmax
+	// Plus we can run this process from both ends which results in
+	// an O(n) O(1) solution
+
+	auto left = height.begin();
+	auto right = height.end() - 1;
+
+	int leftMax = 0, rightMax = 0;
+	int result = 0;
+	while (left != right)
+	{
+		if (*left <= *right)
+		{
+			if (*left > leftMax)
+			{	// note here, leftmax is updated strictly when
+				// *left <= *right
+				// which means that leftMax is always not larger 
+				// than current right value
+				leftMax = *left;
+			}
+			else
+			{
+				result += (leftMax - *left);
+			}
+			left++;
+		}
+		else
+		{	// symmetrical to the above code
+			// the invariant is the fact that
+			// everytime when we can update the result, we always
+			// make sure to have 2 highers wall surrounding us
+			// we just pick the shorter wall and calculate the amount of water trapped
+			if (*right > rightMax)
+			{
+				rightMax = *right;
+			}
+			else
+			{
+				result += (rightMax - *right);
+			}
+			right--;
+		}
+	}
 	return result;
 }
 
@@ -254,7 +311,8 @@ int main()
 
 	cout << "brute force - improved result: " << trap_bf_improved(v2) << '\n';
 
-	cout << "memo result: " << trap_memo(v2) << '\n';
+	cout << "memo result: " << trap_bf_memo(v2) << '\n';
+	cout << "optimal result: " << trap_optimal(v2) << '\n';
 
 	return 0;
 }
