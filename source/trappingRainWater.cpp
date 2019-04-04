@@ -204,7 +204,7 @@ int trap_bf_improved(const vector<int>& height)
 int trap_memo(const vector<int>& height)
 {	// pre-calculate and memorize leftmax and rightmax
 	// then use the stored information to do the job
-	// just like the previous methods
+	// just like the previous methods, however this runs in O(n)
 	vector<pair<int, int>> lr_max(height.size(), pair<int, int>(0,0));
 
 	int len = height.size();
