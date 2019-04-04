@@ -35,101 +35,95 @@ Given n non-negative integers representing an elevation map where the width
 of each bar is 1, compute how much water it is able to trap after raining.
 */
 
-vector<int>::iterator lfind_FirstNoneZero(vector<int>& v)
+pair<vector<int>::iterator, vector<int>::iterator> trimSides(vector<int>::iterator front, vector<int>::iterator back)
 {
-	auto ite = v.begin();
-	while(ite != v.end())
+	vector<int>::iterator low = front, high = back;
+
+	bool foundLow = false, foundHigh = false;
+	while (front != back and (not foundLow or not foundHigh))
 	{
-		if(*ite != 0)
+		if (not foundLow)
 		{
-			return ite;
+			if (*front != 0)
+			{
+				low = front;
+				foundLow = true;
+			}
+			front++;
 		}
-		ite++;
-	}
-	return ite;
-}
 
-vector<int>::iterator rfind_FirstNoneZero(vector<int>& v)
-{
-	auto ite = v.end()-1;
-	while(ite != v.begin())
-	{
-		if(*ite != 0)
+		if (not foundHigh)
 		{
-			return ite;
+			if(*back != 0)
+			{
+				high = back;
+				foundHigh = true;
+			}
+			back--;
 		}
-		ite--;
+
 	}
-	return ite;
-}
-
-void trimSides(vector<int>& h)
-{
-	auto left = lfind_FirstNoneZero(h);
-
-	if(h.size() != 0 and left == h.end())
+	if(front == back)
 	{
-		h.clear();
-		return;
+		return {front, back};
 	}
-
-	auto right = rfind_FirstNoneZero(h)+1;
-
-	h = vector<int>(left, right);
+	return {low, high};
 }
 
 
 int min_nonZeroElement(vector<int>::iterator begin, vector<int>::iterator end)
 {
 	int min_ele = INT_MAX;
-	for(;begin != end; ++begin)
+	for (; begin != end+1; ++begin)
 	{
-		if(*begin != 0 and *begin < min_ele)
+
+		if (*begin != 0 and * begin < min_ele)
 		{
 			min_ele = *begin;
 		}
 	}
-	return (min_ele==INT_MAX)?0:min_ele;
+	return (min_ele == INT_MAX) ? 0 : min_ele;
 }
 
-int fillWater(vector<int>& h)
-{	
-	int decrease_amount = min_nonZeroElement(h.begin(), h.end());
+int fillWater(vector<int>::iterator begin, vector<int>::iterator end)
+{
+
+	int decrease_amount = min_nonZeroElement(begin, end);
+
 	int zero_counter = 0;
-	for(int i = 0; i < h.size(); ++i)
+
+	for (; begin != end+1; ++begin)
 	{
-		if(h[i] == 0)
+		if (*begin == 0)
 		{
 			zero_counter++;
 		}
 		else
 		{
-			h[i] -= decrease_amount;
+			(*begin) -= decrease_amount;
 		}
 	}
 
-	return zero_counter*decrease_amount;
+	return zero_counter * decrease_amount;
 }
 
-int trap_simulation(vector<int> height) 
+int trap_simulation(vector<int> height)
 {	// calculate the result by actually simulate the filling process
 	// this is a n^2 algorithm
-	if(height.size() == 0)
+	if (height.size() == 0)
 	{
 		return 0;
 	}
 
-	trimSides(height);
+	auto p = trimSides(height.begin(), height.end()-1);
 
 	int result = 0;
-	
-	while(height.size() != 0)
+
+	while (p.first != p.second)
 	{
-		inspect<vector<int>>(height);
-
-		result += fillWater(height);
-
-		trimSides(height);
+		//inspect<vector<int>>(height);
+		result += fillWater(p.first, p.second);
+		p = trimSides(p.first, p.second);
 	}
 
 	return result;
@@ -137,8 +131,8 @@ int trap_simulation(vector<int> height)
 
 int main()
 {
-	//vector<int> v{0,1,0,2,1,0,1,3,2,1,2,1};
-	vector<int> v{2,0,2};
+	vector<int> v{10527,740,9013,1300,29680,4898,13993,15213,18182,24254,3966,24378,11522,9190};
+	//vector<int> v{2, 0, 2};
 
 	cout << trap_simulation(v) << '\n';
 	//for_each(v.begin(), v.end(), decrement_noneZero);
