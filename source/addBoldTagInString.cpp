@@ -72,58 +72,130 @@ bool matchMove(int& left, int& right, const string& s, vector<string>& dict)
 	return updated;
 }
 
-void mergeRanges(vector<pair<int, int>>& ranges)
+// void mergeRanges(vector<pair<int, int>>& ranges)
+// {
+// 	vector<pair<int, int>> result(1, ranges[0]);
+
+// 	for (int i = 1; i < ranges.size(); ++i)
+// 	{
+// 		if (ranges[i].first >= result.back().first and ranges[i].first <= result.back().second
+// 		        and ranges[i].second > result.back().second)
+// 		{
+// 			auto temp = result.back();
+// 			result.pop_back();
+// 			result.push_back({temp.first, ranges[i].second});
+// 		}
+// 		else
+// 		{
+// 			result.push_back(ranges[i]);
+// 		}
+// 	}
+// 	ranges = result;
+// }
+
+
+string addBoldTag(string s, vector<string>& dict)
 {
 	vector<pair<int, int>> result;
-	for (int i = 1; i < ranges.size(); ++i)
+
+	for (int i = 0, j = 0; i < s.length(); ++i)
 	{
-		if (ranges[i].first >= ranges[i - 1].first and ranges[i].first <= ranges[i - 1].second
-		        and ranges[i].second > ranges[i - 1].second)
+		if (matchMove(i, j, s, dict))
 		{
-			result.push_back({ranges[i - 1].first, ranges[i].second});
-		}
-		else
-		{
-			result.push_back(ranges[i-1]);
-			if(i == ranges.size()-1)
+			if (result.empty())
 			{
-				result.push_back(ranges[i]);
+				result.push_back({i, j});
+			}
+			else
+			{
+				
+				if (i >= result.back().first and i <= result.back().second
+				        and j > result.back().second)
+				{
+					auto temp = result.back();
+					result.pop_back();
+					result.push_back({temp.first, j});
+				}
+				else
+				{
+					result.push_back({i, j});
+				}
 			}
 		}
 	}
-	ranges = result;
-}
 
-// string addBoldTag(string s, vector<string>& dict)
-// {
-// 	int left = 0, right = 0;
-// }
+	if(result.size() == 0)
+	{
+		return s;
+	}
+
+	vector<string> pieces;
+
+	int prev_end = 0;
+
+	for (int i = 0; i < result.size(); ++i)
+	{
+		string p1 = s.substr(prev_end, result[i].first - prev_end);
+		string p2 = s.substr(result[i].first, result[i].second - result[i].first);
+		if (p1.length() != 0)
+		{
+			pieces.push_back(p1);
+		}
+		pieces.push_back("<b>");
+		pieces.push_back(p2);
+		pieces.push_back("</b>");
+		prev_end = result[i].second;
+	}
+
+	string p3 = s.substr(result.back().second, s.length() - result.back().second);
+	if(p3.length() != 0)
+	{
+		pieces.push_back(p3);
+	}
+
+	//inspect<vector<string>>(pieces);
+
+	string outcome;
+	for(const auto& piece : pieces)
+	{
+		outcome += piece;
+	}
+
+	return outcome;
+
+}
 
 int main()
 {
-	string s = "aaabbcc";
-	vector<string> d {"aaa", "aab", "bc"};
+	string s = "aaabbbcc";
+	vector<string> d2 {"aaa", "aab", "c", "bc"};
+	vector<string> d {"d"};
 
 	// string s = "abcxyz123";
 	// vector<string> d{"abc", "123"};
 
 	// int l = 4, r = 4;
 	// matchMove(l, r, s, d);
-	vector<pair<int, int>> ranges;
-	for (int i = 0, j = 0; i < s.length(); ++i)
-	{
-		if (matchMove(i, j, s, d))
-		{
-			ranges.push_back({i, j});
-		}
-	}
+	// vector<pair<int, int>> ranges;
+	// for (int i = 0, j = 0; i < s.length(); ++i)
+	// {
+	// 	if (matchMove(i, j, s, d))
+	// 	{
+	// 		ranges.push_back({i, j});
+	// 		printf("(%d, %d)\n", i, j);
+	// 	}
+	// }
+	// cout << "done\n";
+	// mergeRanges(ranges);
 
-	mergeRanges(ranges);
+	// for (auto item : ranges)
+	// {
+	// 	printf("(%d, %d)\n", item.first, item.second);
+	// }
 
-	for(auto item : ranges)
-	{
-		printf("(%d, %d)\n", item.first, item.second);
-	}
+	// cout << "over\n";
+
+	cout << addBoldTag(s, d) << endl;
 
 	return 0;
 }
