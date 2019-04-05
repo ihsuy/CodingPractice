@@ -41,7 +41,6 @@ std::cin.tie(nullptr);
 return nullptr;
 }();
 
-
 // <<<<<<<<<<< Solutions <<<<<<<<<<<
 // brute force
 
