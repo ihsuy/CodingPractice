@@ -37,7 +37,8 @@ T that contains at most k distinct characters.
 */
 
 void increment_counter(unordered_map<char, int>& unique_count, const char& n)
-{
+{	// safely increment counter
+	// handle the default case : when int is uninitialized set to 1
 	if (unique_count.count(n) == 0)
 	{
 		unique_count[n] = 1;
@@ -49,7 +50,7 @@ void increment_counter(unordered_map<char, int>& unique_count, const char& n)
 }
 
 void decrement_counter(unordered_map<char, int>& unique_count, const char& n)
-{
+{	// decrement counter, remove entry completely if its counter becomes 0
 	unique_count[n]--;
 	if (unique_count[n] <= 0)
 	{
@@ -60,35 +61,42 @@ void decrement_counter(unordered_map<char, int>& unique_count, const char& n)
 int lengthOfLongestSubstringKDistinct(const string& s, int k)
 {
 	if (s.length() == 0 or k == 0)
-	{
+	{	
 		return 0;
 	}
 
-	int result = 0;
+	int result = 1;
 
 	unordered_map<char, int> unique_count;
 
+	// probing s using window (i, j)
 	int i = 0, j = 0;
-	
-	for (; i < s.length() and j < s.length();)
-	{
+
+	for (; j < s.length();)
+	{	// loop ends when rhs of the window exceeds array boundary
 		if (unique_count.size() != k or unique_count.count(s[j]) != 0)
-		{
+		{	// if the substring doesn't contain more than k character
+			// move rhs of the window to right, until this doesn't hold
 			increment_counter(unique_count, s[j]);
 			j++;
 		}
 		else
-		{
+		{	// if the current substring already contain k unique characters
+			// and we've discovered another new character
+			// update result
 			result = max(j-i, result);
 
 			while (unique_count.size() == k)
-			{
+			{	// move lhs of window to the right,
+				// until current substring contains less than k element
 				decrement_counter(unique_count, s[i]);
 				i++;
 			}
 		}
 	}
 	
+	// since the case when j == s.length() isn't handled yet
+	// we do it here
 	return max(j-i, result);;
 }
 
