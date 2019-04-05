@@ -36,68 +36,73 @@ Given a string, find the length of the longest substring
 T that contains at most k distinct characters.
 */
 
-void increment_counter(unordered_map<char, int>& unique_count, const char& n)
-{	// safely increment counter
-	// handle the default case : when int is uninitialized set to 1
-	if (unique_count.count(n) == 0)
-	{
-		unique_count[n] = 1;
+void increment_counter(int& unique_count, vector<int>& letter_count, const char& n)
+{	
+	if (letter_count[n] == 0)
+	{	// never seen this letter, so its unique
+		unique_count++;
+		letter_count[n]++;
 	}
 	else
 	{
-		unique_count[n]++;
+		letter_count[n]++;
 	}
 }
 
-void decrement_counter(unordered_map<char, int>& unique_count, const char& n)
-{	// decrement counter, remove entry completely if its counter becomes 0
-	unique_count[n]--;
-	if (unique_count[n] <= 0)
+void decrement_counter(int& unique_count, vector<int>& letter_count, const char& n)
+{	// decrement counter, decrement unique_count if its counter becomes 0
+	letter_count[n]--;
+
+	if (letter_count[n] <= 0)
 	{
-		unique_count.erase(n);
+		unique_count--;
 	}
 }
 
 int lengthOfLongestSubstringKDistinct(const string& s, int k)
 {
 	if (s.length() == 0 or k == 0)
-	{	
+	{
 		return 0;
 	}
 
 	int result = 1;
 
-	unordered_map<char, int> unique_count;
+	// possible 128 characters in inputs
+	vector<int> letter_count(128, 0);
+	int unique_count = 0;
 
 	// probing s using window (i, j)
 	int i = 0, j = 0;
 
 	for (; j < s.length();)
 	{	// loop ends when rhs of the window exceeds array boundary
-		if (unique_count.size() != k or unique_count.count(s[j]) != 0)
-		{	// if the substring doesn't contain more than k character
-			// move rhs of the window to right, until this doesn't hold
-			increment_counter(unique_count, s[j]);
+		if (unique_count != k or letter_count[s[j]] != 0)
+		{	// if the substring contain less than k character 
+			// or its not going to contain more than k characters
+			// move rhs of the window to right, until this condition doesn't hold
+			increment_counter(unique_count, letter_count, s[j]);
 			j++;
 		}
 		else
 		{	// if the current substring already contain k unique characters
-			// and we've discovered another new character
+			// and we've discovered another new unique character 
+			// to not exceed k, we can't proceed further.
 			// update result
-			result = max(j-i, result);
+			result = max(j - i, result);
 
-			while (unique_count.size() == k)
+			while (unique_count == k)
 			{	// move lhs of window to the right,
 				// until current substring contains less than k element
-				decrement_counter(unique_count, s[i]);
+				decrement_counter(unique_count, letter_count, s[i]);
 				i++;
 			}
 		}
 	}
-	
+
 	// since the case when j == s.length() isn't handled yet
 	// we do it here
-	return max(j-i, result);;
+	return max(j - i, result);;
 }
 
 int main()
