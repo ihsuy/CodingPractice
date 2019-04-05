@@ -40,8 +40,9 @@ are consecutive, you need to combine them.
 */
 
 bool matchMove(int& left, int& right, const string& s, vector<string>& dict)
-{
+{	// match word and slide window if longer word is found
 	char initial_letter = s[left];
+
 	int width = (right >= left) ? right - left : 0;
 
 	bool updated = false;
@@ -51,7 +52,8 @@ bool matchMove(int& left, int& right, const string& s, vector<string>& dict)
 		string word = dict[i];
 
 		if (word[0] == initial_letter and word.length() > width)
-		{
+		{	// if word length is shorter than width, the word included 
+			// in a larger word, so we can ignore it
 			int j = 1;
 			for (; j < word.length(); ++j)
 			{
@@ -77,7 +79,7 @@ string addBoldTag(string s, vector<string>& dict)
 	vector<pair<int, int>> result;
 
 	for (int i = 0, j = 0; i < s.length(); ++i)
-	{
+	{	// try to match word by word
 		if (matchMove(i, j, s, dict))
 		{
 			if (result.empty())
@@ -85,8 +87,7 @@ string addBoldTag(string s, vector<string>& dict)
 				result.push_back({i, j});
 			}
 			else
-			{
-				
+			{	// merge ranges
 				if (i >= result.back().first and i <= result.back().second
 				        and j > result.back().second)
 				{
@@ -103,7 +104,7 @@ string addBoldTag(string s, vector<string>& dict)
 	}
 
 	if(result.size() == 0)
-	{
+	{	// no match found
 		return s;
 	}
 
@@ -112,7 +113,7 @@ string addBoldTag(string s, vector<string>& dict)
 	int prev_end = 0;
 
 	for (int i = 0; i < result.size(); ++i)
-	{
+	{	// seperate string into pieces and add tags 
 		string p1 = s.substr(prev_end, result[i].first - prev_end);
 		string p2 = s.substr(result[i].first, result[i].second - result[i].first);
 		if (p1.length() != 0)
@@ -131,8 +132,6 @@ string addBoldTag(string s, vector<string>& dict)
 		pieces.push_back(p3);
 	}
 
-	//inspect<vector<string>>(pieces);
-
 	string outcome;
 	for(const auto& piece : pieces)
 	{
@@ -146,34 +145,12 @@ string addBoldTag(string s, vector<string>& dict)
 int main()
 {
 	string s = "aaabbbcc";
-	vector<string> d2 {"aaa", "aab", "c", "bc"};
-	vector<string> d {"d"};
+	vector<string> d {"aaa", "aab", "c", "bc"};
 
-	// string s = "abcxyz123";
-	// vector<string> d{"abc", "123"};
+	string s2 = "abcxyz123";
+	vector<string> d2{"abc", "123"};
 
-	// int l = 4, r = 4;
-	// matchMove(l, r, s, d);
-	// vector<pair<int, int>> ranges;
-	// for (int i = 0, j = 0; i < s.length(); ++i)
-	// {
-	// 	if (matchMove(i, j, s, d))
-	// 	{
-	// 		ranges.push_back({i, j});
-	// 		printf("(%d, %d)\n", i, j);
-	// 	}
-	// }
-	// cout << "done\n";
-	// mergeRanges(ranges);
-
-	// for (auto item : ranges)
-	// {
-	// 	printf("(%d, %d)\n", item.first, item.second);
-	// }
-
-	// cout << "over\n";
-
-	cout << addBoldTag(s, d) << endl;
-
+	cout << "test 1 result: " << addBoldTag(s, d) << endl;
+	cout << "test 2 result: "<< addBoldTag(s2, d2) << endl;
 	return 0;
 }
