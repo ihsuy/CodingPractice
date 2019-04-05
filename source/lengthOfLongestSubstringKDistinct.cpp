@@ -36,55 +36,64 @@ Given a string, find the length of the longest substring
 T that contains at most k distinct characters.
 */
 
+void increment_counter(unordered_map<char, int>& unique_count, const char& n)
+{
+	if (unique_count.count(n) == 0)
+	{
+		unique_count[n] = 1;
+	}
+	else
+	{
+		unique_count[n]++;
+	}
+}
+
+void decrement_counter(unordered_map<char, int>& unique_count, const char& n)
+{
+	unique_count[n]--;
+	if (unique_count[n] <= 0)
+	{
+		unique_count.erase(n);
+	}
+}
+
 int lengthOfLongestSubstringKDistinct(const string& s, int k)
 {
-	if (s.length() == 0)
+	if (s.length() == 0 or k == 0)
 	{
 		return 0;
 	}
-	unordered_set<char> unique_char;
-	vector<int> changePoints;
-	vector<int> unique_count;
-
-	for (int i = 0; i < s.length(); ++i)
-	{
-		char ch = s[i];
-		
-		if (unique_char.count(ch) == 0)
-		{
-			cout << "i: " << i << '\n';
-			changePoints.push_back(i);
-			unique_char.insert(ch);
-		}
-		unique_count.push_back(unique_char.size());
-	}
-
-	changePoints.push_back(s.length());
-
-	if (k > unique_char.size())
-	{
-		k = unique_char.size();
-	}
-
-	inspect<vector<int>>(changePoints);
-	inspect<vector<int>>(unique_count);
 
 	int result = 0;
-	for (int i = 0, j = k; i < changePoints.size() - k; ++i, ++j)
+	unordered_map<char, int> unique_count;
+
+	int i = 0, j = 0;
+	for (; i < s.length() and j < s.length();)
 	{
-		int diff = changePoints[j] - changePoints[i];
-		if (diff > result)
+		if (unique_count.size() != k or unique_count.count(s[j]) != 0)
 		{
-			result = diff;
+			increment_counter(unique_count, s[j]);
+			j++;
+		}
+		else
+		{
+			result = max(j-i, result);
+
+			while (unique_count.size() == k)
+			{
+				decrement_counter(unique_count, s[i]);
+				i++;
+			}
 		}
 	}
-	return result;
+	
+	return max(j-i, result);;
 }
 
 int main()
 {
-	string s = "aba";
-	int k = 1 ;
+	string s = "ecebebeee";
+	int k = 2 ;
 
 	cout << lengthOfLongestSubstringKDistinct(s, k) << '\n';
 
