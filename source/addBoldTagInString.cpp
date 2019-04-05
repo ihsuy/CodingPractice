@@ -72,28 +72,6 @@ bool matchMove(int& left, int& right, const string& s, vector<string>& dict)
 	return updated;
 }
 
-// void mergeRanges(vector<pair<int, int>>& ranges)
-// {
-// 	vector<pair<int, int>> result(1, ranges[0]);
-
-// 	for (int i = 1; i < ranges.size(); ++i)
-// 	{
-// 		if (ranges[i].first >= result.back().first and ranges[i].first <= result.back().second
-// 		        and ranges[i].second > result.back().second)
-// 		{
-// 			auto temp = result.back();
-// 			result.pop_back();
-// 			result.push_back({temp.first, ranges[i].second});
-// 		}
-// 		else
-// 		{
-// 			result.push_back(ranges[i]);
-// 		}
-// 	}
-// 	ranges = result;
-// }
-
-
 string addBoldTag(string s, vector<string>& dict)
 {
 	vector<pair<int, int>> result;
