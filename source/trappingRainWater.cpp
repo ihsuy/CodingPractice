@@ -35,102 +35,6 @@ Given n non-negative integers representing an elevation map where the width
 of each bar is 1, compute how much water it is able to trap after raining.
 */
 
-// pair<vector<int>::iterator, vector<int>::iterator> trimSides(vector<int>::iterator front, vector<int>::iterator back)
-// {
-// 	vector<int>::iterator low = front, high = back;
-
-// 	bool foundLow = false, foundHigh = false;
-// 	while (front != back and (not foundLow or not foundHigh))
-// 	{
-// 		if (not foundLow)
-// 		{
-// 			if (*front != 0)
-// 			{
-// 				low = front;
-// 				foundLow = true;
-// 			}
-// 			front++;
-// 		}
-
-// 		if (not foundHigh)
-// 		{
-// 			if(*back != 0)
-// 			{
-// 				high = back;
-// 				foundHigh = true;
-// 			}
-// 			back--;
-// 		}
-
-// 	}
-// 	if(front == back)
-// 	{
-// 		return {front, back};
-// 	}
-// 	return {low, high};
-// }
-
-
-// int min_nonZeroElement(vector<int>::iterator begin, vector<int>::iterator end)
-// {
-// 	int min_ele = INT_MAX;
-// 	for (; begin != end+1; ++begin)
-// 	{
-
-// 		if (*begin != 0 and * begin < min_ele)
-// 		{
-// 			min_ele = *begin;
-// 		}
-// 	}
-// 	return (min_ele == INT_MAX) ? 0 : min_ele;
-// }
-
-// int fillWater(vector<int>::iterator begin, vector<int>::iterator end)
-// {
-
-// 	int decrease_amount = min_nonZeroElement(begin, end);
-
-// 	int zero_counter = 0;
-
-// 	for (; begin != end+1; ++begin)
-// 	{
-// 		if (*begin == 0)
-// 		{
-// 			zero_counter++;
-// 		}
-// 		else
-// 		{
-// 			(*begin) -= decrease_amount;
-// 		}
-// 	}
-
-// 	return zero_counter * decrease_amount;
-// }
-
-// int trap_simulation(vector<int> height)
-// {	// calculate the result by actually simulate the filling process
-// 	// this is a n^2 algorithm
-// 	if (height.size() == 0)
-// 	{
-// 		return 0;
-// 	}
-
-// 	auto p = trimSides(height.begin(), height.end()-1);
-
-// 	int result = 0;
-
-// 	while (p.first != p.second)
-// 	{	// visualize how the heights are filled
-// 		inspect<vector<int>>(height);
-
-// 		result += fillWater(p.first, p.second);
-
-// 		p = trimSides(p.first, p.second);
-// 	}
-
-// 	return result;
-// }
-
 static const auto __ = []() {
 std::ios::sync_with_stdio(false);
 std::cin.tie(nullptr);
@@ -316,3 +220,100 @@ int main()
 
 	return 0;
 }
+
+
+// pair<vector<int>::iterator, vector<int>::iterator> trimSides(vector<int>::iterator front, vector<int>::iterator back)
+// {
+// 	vector<int>::iterator low = front, high = back;
+
+// 	bool foundLow = false, foundHigh = false;
+// 	while (front != back and (not foundLow or not foundHigh))
+// 	{
+// 		if (not foundLow)
+// 		{
+// 			if (*front != 0)
+// 			{
+// 				low = front;
+// 				foundLow = true;
+// 			}
+// 			front++;
+// 		}
+
+// 		if (not foundHigh)
+// 		{
+// 			if(*back != 0)
+// 			{
+// 				high = back;
+// 				foundHigh = true;
+// 			}
+// 			back--;
+// 		}
+
+// 	}
+// 	if(front == back)
+// 	{
+// 		return {front, back};
+// 	}
+// 	return {low, high};
+// }
+
+
+// int min_nonZeroElement(vector<int>::iterator begin, vector<int>::iterator end)
+// {
+// 	int min_ele = INT_MAX;
+// 	for (; begin != end+1; ++begin)
+// 	{
+
+// 		if (*begin != 0 and * begin < min_ele)
+// 		{
+// 			min_ele = *begin;
+// 		}
+// 	}
+// 	return (min_ele == INT_MAX) ? 0 : min_ele;
+// }
+
+// int fillWater(vector<int>::iterator begin, vector<int>::iterator end)
+// {
+
+// 	int decrease_amount = min_nonZeroElement(begin, end);
+
+// 	int zero_counter = 0;
+
+// 	for (; begin != end+1; ++begin)
+// 	{
+// 		if (*begin == 0)
+// 		{
+// 			zero_counter++;
+// 		}
+// 		else
+// 		{
+// 			(*begin) -= decrease_amount;
+// 		}
+// 	}
+
+// 	return zero_counter * decrease_amount;
+// }
+
+// int trap_simulation(vector<int> height)
+// {	// calculate the result by actually simulate the filling process
+// 	// this is a n^2 algorithm
+// 	if (height.size() == 0)
+// 	{
+// 		return 0;
+// 	}
+
+// 	auto p = trimSides(height.begin(), height.end()-1);
+
+// 	int result = 0;
+
+// 	while (p.first != p.second)
+// 	{	// visualize how the heights are filled
+// 		inspect<vector<int>>(height);
+
+// 		result += fillWater(p.first, p.second);
+
+// 		p = trimSides(p.first, p.second);
+// 	}
+
+// 	return result;
+// }
