@@ -65,9 +65,11 @@ int lengthOfLongestSubstringKDistinct(const string& s, int k)
 	}
 
 	int result = 0;
+
 	unordered_map<char, int> unique_count;
 
 	int i = 0, j = 0;
+	
 	for (; i < s.length() and j < s.length();)
 	{
 		if (unique_count.size() != k or unique_count.count(s[j]) != 0)
