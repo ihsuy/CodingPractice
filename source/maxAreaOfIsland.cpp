@@ -94,7 +94,7 @@ int maxAreaOfIsland(vector<vector<int>>& grid)
 
 int main()
 {
-	vector<vector<int>> grid
+	vector<vector<int>> grid1
 	{
 		{0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0},
@@ -110,8 +110,10 @@ int main()
 	{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 	};
-
-	cout << maxAreaOfIsland(grid2) << endl;
+	
+	cout << "grid1 result: " << maxAreaOfIsland(grid) << endl;
+	
+	cout << "grid2 result: " << maxAreaOfIsland(grid2) << endl;
 
 	return 0;
 }
