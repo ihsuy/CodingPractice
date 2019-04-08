@@ -38,12 +38,13 @@ The number is represented as a string.
 */
 
 bool isSymmetricDigit(const char& ch)
-{
+{	// between 0-9 only 0 1 9 8 are not going to change after 180 degree rotation
 	return (ch == '0' or ch == '1' or ch == '8');
 }
 
 bool isEither6or9(const char& ch1, const char& ch2)
-{
+{	// 6 and 9 is a special case cause rotating 
+	// by 180 will cause their value to be swapped
 	return (ch1 == '6' and ch2 == '9') or (ch1 == '9' and ch2 == '6');
 }
 
@@ -52,23 +53,28 @@ bool isStrobogrammatic(string num)
 	int low = 0, high = num.length() - 1;
 	while (low <= high)
 	{
-		if (num[low] != num[high] and not isEither6or9(num[low], num[high]))
-		{
+		if ((not isEither6or9(num[low], num[high])) 
+			and (num[low] != num[high] or (not isSymmetricDigit(num[low]))))
+		{	// a number is not a strobogrammatic number when
+			// it contains a number thats not symmtricDigit 
+			// and its not 6 or 9 or its counter part isn't 9 or 6 respectively
 			return false;
 		}
-		if (not isEither6or9(num[low], num[high]) and (not isSymmetricDigit(num[low]) or not isSymmetricDigit(num[high])))
-		{
-			return false;
-		}
+
 		low++;
 		high--;
 	}
+
 	return true;
 }
 
 int main()
 {
+	const string s1 = "692";
+	const string s2 = "66199";
 
+	cout << s1 << " isStrobogrammatic: " << isStrobogrammatic(s1) << '\n';
+	cout << s2 << " isStrobogrammatic: " << isStrobogrammatic(s2) << '\n';
 
 	return 0;
 }
