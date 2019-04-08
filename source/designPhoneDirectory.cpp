@@ -31,7 +31,11 @@ inline void inspect(T& t){typename T::iterator i1 = t.begin(), i2 = t.end(); whi
 using namespace std;
 
 /*
+Design a Phone Directory which supports the following operations:
 
+get: Provide a number which is not assigned to anyone.
+check: Check if a number is available or not.
+release: Recycle or release a number.
 */
 
 
