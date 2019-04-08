@@ -31,7 +31,7 @@ inline void inspect(T& t) {typename T::iterator i1 = t.begin(), i2 = t.end(); wh
 using namespace std;
 
 /*
-Given an unsorted array nums, reorder it 
+Given an unsorted array nums, reorder it
 in-place such that nums[0] <= nums[1] >= nums[2] <= nums[3]...
 */
 
@@ -44,8 +44,8 @@ void wiggleSort(vector<int>& nums)
 		// the only two cases are if the ith element is less or equal to the i-1th element
 		// or its larger than it
 		// which can be both solved by simplely swapping the values of ith and i-1th
-		if ((i % 2 == 1 and nums[i - 1] > nums[i]) 
-			or (i % 2 == 0 and nums[i - 1] < nums[i]))
+		if ((i % 2 == 1 and nums[i - 1] > nums[i])
+		        or (i % 2 == 0 and nums[i - 1] < nums[i]))
 		{
 			swap(nums[i - 1], nums[i]);
 		}
@@ -54,7 +54,7 @@ void wiggleSort(vector<int>& nums)
 
 int main()
 {
-	vector<int> v {3,5,2,1,6,4};
+	vector<int> v {3, 5, 2, 1, 6, 4};
 
 	wiggleSort(v);
 
