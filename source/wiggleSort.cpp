@@ -44,6 +44,7 @@ void wiggleSort(vector<int>& nums)
 		// the only two cases are if the ith element is less or equal to the i-1th element
 		// or its larger than it
 		// which can be both solved by simplely swapping the values of ith and i-1th
+		
 		if ((i % 2 == 1 and nums[i - 1] > nums[i])
 		        or (i % 2 == 0 and nums[i - 1] < nums[i]))
 		{
