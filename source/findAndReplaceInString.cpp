@@ -79,6 +79,26 @@ string findReplaceString(string S, vector<int> indexes, vector<string>& sources,
 	return S;
 }
 
+string findReplaceString2(string S, vector<int>& idx, vector<string>& src, vector<string>& tgs) 
+{
+	map<int, pair<int, string>, greater<int>> m;
+
+	for (auto i = 0; i < idx.size(); ++i)
+	{
+		if (S.find(src[i], idx[i]) == idx[i])
+		{
+			m[idx[i]] = { src[i].size(), tgs[i] };
+		}
+	}
+
+	for (auto& r : m)
+	{
+		S.replace(r.first, r.second.first, r.second.second);
+	}
+
+	return S;
+}
+
 
 int main()
 {
