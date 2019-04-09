@@ -6,6 +6,64 @@
 #include <algorithm>
 using namespace std;
 
+vector<vector<int>> threeSum_better(vector<int>& nums)
+{
+	if (nums.size() < 3)
+	{
+		return vector<vector<int>>();
+	}
+
+	sort(nums.begin(), nums.end());
+
+	// look for the first positive position
+	int positive_pos = 0;
+	while (positive_pos < nums.size() and nums[positive_pos] <= 0)
+	{
+		positive_pos++;
+	}
+
+	vector<vector<int>> result;
+
+	for (int i = 0; i < positive_pos; ++i)
+	{
+		int front = i + 1, back = nums.size() - 1;
+		int current = nums[i];
+		while (front < back)
+		{
+			if (-(nums[front] + nums[back]) > current)
+			{
+				front++;
+			}
+			else if (-(nums[front] + nums[back]) < current)
+			{
+				back--;
+			}
+			else
+			{
+				result.push_back({nums[i], nums[front], nums[back]});
+
+				while (front + 1 < nums.size() and nums[front + 1] == nums[front])
+				{
+					front++;
+				}
+				while (back - 1 > positive_pos and nums[back - 1] == nums[back])
+				{
+					back--;
+				}
+
+				front++;
+				back--;
+			}
+		}
+
+		while (i + 1 < positive_pos and nums[i] == nums[i + 1])
+		{
+			i++;
+		}
+	}
+	return result;
+}
+
 vector<vector<int>> threeSum2(vector<int>& nums)
 {
 	vector<vector<int>> ans;
