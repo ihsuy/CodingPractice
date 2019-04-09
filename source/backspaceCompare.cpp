@@ -31,53 +31,45 @@ inline void inspect(T& t) {typename T::iterator i1 = t.begin(), i2 = t.end(); wh
 using namespace std;
 
 /*
-Given a file and assume that you can only read the file using a
-given method read4, implement a method to read n characters.
+Given two strings S and T, return if they are equal when 
+both are typed into empty text editors. # means a backspace character.
+Input: S = "ab#c", T = "ad#c"
+Output: true
+Explanation: Both S and T become "ac".
 */
 
-// Forward declaration of the read4 API.
-int read4(char *buf);
-
-class Solution {
-public:
-	/**
-	 * @param buf Destination buffer
-	 * @param n   Number of characters to read
-	 * @return    The number of actual characters read
-	 */
-	int read(char *buf, int n) {
-		int nRead = n / 4;
-		int remainder = n % 4;
-
-		char* temp = buf;
-
-		for (int i = 0; i < nRead; ++i)
+bool backspaceCompare(const string& s, const string& t)
+{
+	string l1, l2;
+	for (const char& ch : s)
+	{
+		if (not l1.empty() and ch == '#')
 		{
-			auto r = read4(buf);
-			if (r < 4)
-			{
-				return i * 4 + r;
-			}
-			buf += 4;
+			l1.pop_back();
 		}
-		if (remainder != 0)
+		else if (ch != '#')
 		{
-			auto r = read4(buf);
-			if (r < remainder)
-			{
-				*(temp + nRead * 4 + r) = 0;
-				return nRead * 4 + r;
-			}
-			*(temp + n) = 0;
+			l1.push_back(ch);
 		}
-		return n;
 	}
-};
+	for (const char& ch : t)
+	{
+		if (not l2.empty() and ch == '#')
+		{
+			l2.pop_back();
+		}
+		else if (ch != '#')
+		{
+			l2.push_back(ch);
+		}
+	}
+	return l1 == l2;
+}
+
 
 int main()
 {
-	// test cases omitted
-
+	cout << backspaceCompare("a#b##cd", "###cc#c#d") << endl;
+	cout << backspaceCompare("a#b##cd", "###ccc#c#d") << endl;
 	return 0;
 }
-
