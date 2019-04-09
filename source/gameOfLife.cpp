@@ -68,6 +68,7 @@ const vector<int> directions{ -1, -1, 1, 1, -1, 0, 1, 0 , -1};
 void determineFate(vector<vector<int>>& board, const int& r, const int& c)
 {
 	int liveNeighborsCount = 0;
+
 	for (int i = 0; i < 8; ++i)
 	{
 		int next_r = r + directions[i],
@@ -161,7 +162,6 @@ int main()
 			cout << '\n';
 		}
 		this_thread::sleep_for(chrono::milliseconds(200));
-
 	}
 
 
