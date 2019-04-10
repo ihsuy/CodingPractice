@@ -74,18 +74,19 @@ vector<vector<int>> imageSmoother(vector<vector<int>>& M)
 int main()
 {
 	vector<vector<int>> m {
-		{1,2,3,4},
-		{2,3,4,5},
-		{3,4,5,6},
-		{1,2,3,4}
+		{1, 2, 3, 4},
+		{2, 3, 4, 5},
+		{3, 4, 5, 6},
+		{1, 2, 3, 4}
 	};
 
 	auto M = imageSmoother(m);
 	cout << "smoothed Image:\n";
-	for(auto& line : M)
+	for (auto& line : M)
 	{
 		inspect<vector<int>>(line);
 	}
 
 	return 0;
 }
+
