@@ -37,41 +37,54 @@ Given a binary array, find the maximum number of consecutive 1s in this array.
 int findMaxConsecutiveOnes(const vector<int>& nums)
 {
 	int result = 0;
-	int oneCounter = 0;
+	int prev_zeroCount = 0;
+	int current_zeroCount = 0;
 	for (int i = 0; i < nums.size(); ++i)
 	{
 		if (nums[i] == 1)
 		{
-			oneCounter++;
+			current_zeroCount++;
 		}
 		else
 		{
-			if (oneCounter > result)
+			result = max(result, prev_zeroCount + current_zeroCount);
+			if (i == 0 or i == nums.size() - 1)
 			{
-				result = oneCounter;
+				prev_zeroCount = 1;
 			}
-
-			if (i >= nums.size() - result - 1)
+			else
 			{
-				break;
+				if (nums[i - 1] == 1 and nums[i + 1] == 1)
+				{
+					prev_zeroCount = current_zeroCount + 1;
+					current_zeroCount = 0;
+				}
+				else if (nums[i - 1] == 1)
+				{
+					result = max(result, current_zeroCount + 1);
+					prev_zeroCount = 0;
+					current_zeroCount = 0;
+				}
+				else if (nums[i + 1] == 1)
+				{
+					prev_zeroCount = 1;
+				}
+				else
+				{
+					result = max(result, 1);
+				}
 			}
-
-			oneCounter = 0;
 		}
 	}
-
-	if (oneCounter > result)
-	{
-		return oneCounter;
-	}
-
+	result = max(result, prev_zeroCount + current_zeroCount);
 	return result;
 }
 
 int main()
 {
-	vector<int> v {1,1,0,1,1,1,1,0,1,1,1,1,1,0,1,1,1};
+	vector<int> v {1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1};
 	cout << findMaxConsecutiveOnes(v) << endl;
 
 	return 0;
 }
+
