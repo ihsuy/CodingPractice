@@ -31,47 +31,46 @@ inline void inspect(T& t) {typename T::iterator i1 = t.begin(), i2 = t.end(); wh
 using namespace std;
 
 /*
-Given two strings S and T, return if they are equal when
-both are typed into empty text editors. # means a backspace character.
-Input: S = "ab#c", T = "ad#c"
-Output: true
-Explanation: Both S and T become "ac".
+Given a string, determine if it is a palindrome, considering only alphanumeric
+characters and ignoring cases.
+
+Note: For the purpose of this problem, we define empty string as valid palindrome.
 */
-
-bool backspaceCompare(const string& s, const string& t)
+bool isPalindrome(const string& s)
 {
-	string l1, l2;
-	for (const char& ch : s)
+	if (s.length() == 0)
 	{
-		if (not l1.empty() and ch == '#')
-		{
-			l1.pop_back();
-		}
-		else if (ch != '#')
-		{
-			l1.push_back(ch);
-		}
+		return true;
 	}
-	for (const char& ch : t)
-	{
-		if (not l2.empty() and ch == '#')
-		{
-			l2.pop_back();
-		}
-		else if (ch != '#')
-		{
-			l2.push_back(ch);
-		}
-	}
-	return l1 == l2;
-}
 
+	int begin = 0, end = s.length() - 1;
+
+	while (begin < end)
+	{
+		while (begin < end and not isalnum(s[begin]))
+		{
+			begin++;
+		}
+
+		while (begin < end and not isalnum(s[end]))
+		{
+			end--;
+		}
+
+		if (tolower(s[end]) != tolower(s[begin]))
+		{
+			return false;
+		}
+
+		begin++;
+		end--;
+	}
+	return true;
+}
 
 int main()
 {
-	cout << backspaceCompare("a#b##cd", "###cc#c#d") << endl;
-	cout << backspaceCompare("a#b##cd", "###ccc#c#d") << endl;
+	cout << isPalindrome("A man, a plan, a canal: Panama") << endl;
+	cout << isPalindrome("race a car") << endl;
 	return 0;
 }
-
-
