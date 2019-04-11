@@ -41,7 +41,7 @@ void increment_counter(int& unique_count, vector<int>& letter_count, const char&
 	if (letter_count[n] == 0)
 	{	// never seen this letter, so its unique
 		unique_count++;
-		letter_count[n]++;
+		letter_count[n] = 1;
 	}
 	else
 	{
