@@ -43,7 +43,6 @@ palindrome you can find by performing this transformation.
 
 string shortestPalindrome1(string s)
 {	// slow
-
 	// bruteforce solution that checks every possible palindromic substring
 	int front = 0, back = s.length() - 1;
 	int prev_back = back;
@@ -82,6 +81,7 @@ string shortestPalindrome1(string s)
 string shortestPalindrome2(string s)
 {	// a bit faster
 	string rev_s(s);
+	
 	reverse(rev_s.begin(), rev_s.end());
 
 	int i = 0;
