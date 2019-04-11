@@ -31,12 +31,12 @@ inline void inspect(T& t) {typename T::iterator i1 = t.begin(), i2 = t.end(); wh
 using namespace std;
 
 /*
-Equations are given in the format A / B = k, where A and B are variables 
-represented as strings, and k is a real number (floating point number). 
-Given some queries, return the answers. If the answer does not exist, 
+Equations are given in the format A / B = k, where A and B are variables
+represented as strings, and k is a real number (floating point number).
+Given some queries, return the answers. If the answer does not exist,
 return -1.0.
-Given a / b = 2.0, b / c = 3.0. 
-queries are: a / c = ?, b / a = ?, a / e = ?, a / a = ?, x / x = ? . 
+Given a / b = 2.0, b / c = 3.0.
+queries are: a / c = ?, b / a = ?, a / e = ?, a / a = ?, x / x = ? .
 return [6.0, 0.5, -1.0, 1.0, -1.0 ].
 */
 
@@ -74,10 +74,10 @@ vector<double> calcEquation(vector<pair<string, string>> equations, vector<doubl
 				divisionNode* n2 = new divisionNode();
 				n->add_neighbour(n2, values[i]);
 				vars[equations[i].second] = n2;
-				
+
 			}
 			vars[equations[i].first] = n;
-			
+
 		}
 		else
 		{
@@ -90,7 +90,7 @@ vector<double> calcEquation(vector<pair<string, string>> equations, vector<doubl
 				divisionNode* n2 = new divisionNode();
 				vars[equations[i].first]->add_neighbour(n2, values[i]);
 				vars[equations[i].second] = n2;
-				
+
 			}
 		}
 	}
@@ -142,21 +142,21 @@ vector<double> calcEquation(vector<pair<string, string>> equations, vector<doubl
 				}
 			}
 		}
-		if(not found)
+		if (not found)
 		{
 			result.push_back(-1.0);
 		}
 	}
-	
+
 	return result;
 }
 
 
 int main()
 {
-	vector<pair<string, string>> vp {{"a","b"},{"e","f"},{"b","e"}};
-	vector<double> values {3.4,1.4,2.3};
-	vector<pair<string, string>> queries{{"b","a"},{"a","f"},{"f","f"},{"e","e"},{"c","c"},{"a","c"},{"f","e"}};
+	vector<pair<string, string>> vp {{"a", "b"}, {"e", "f"}, {"b", "e"}};
+	vector<double> values {3.4, 1.4, 2.3};
+	vector<pair<string, string>> queries{{"b", "a"}, {"a", "f"}, {"f", "f"}, {"e", "e"}, {"c", "c"}, {"a", "c"}, {"f", "e"}};
 
 	auto result = calcEquation(vp, values, queries);
 
@@ -164,3 +164,4 @@ int main()
 
 	return 0;
 }
+
