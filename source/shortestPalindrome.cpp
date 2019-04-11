@@ -81,20 +81,20 @@ string shortestPalindrome1(string s)
 string shortestPalindrome2(string s)
 {	// a bit faster
 	string rev_s(s);
-	
+
 	reverse(rev_s.begin(), rev_s.end());
 
 	int i = 0;
-	for(; i < s.length(); ++i)
-	{	// instead of creating new string everytime, 
+	for (; i < s.length(); ++i)
+	{	// instead of creating new string everytime,
 		// we use underlying iterators to compare them in place
-		if(s.compare(0, s.length()-i, rev_s, i, s.length()-i) == 0)
+		if (s.compare(0, s.length() - i, rev_s, i, s.length() - i) == 0)
 		{
 			break;
 		}
 	}
 
-	return rev_s.substr(0, i)+s;
+	return rev_s.substr(0, i) + s;
 }
 
 int main()
