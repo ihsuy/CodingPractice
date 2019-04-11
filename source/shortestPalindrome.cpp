@@ -70,11 +70,28 @@ string shortestPalindrome1(string s)
 	return prefix + s;
 }
 
+string shortestPalindrome2(string s)
+{
+	string rev_s(s);
+	reverse(rev_s.begin(), rev_s.end());
+
+	int i = 0;
+	for(; i < s.length(); ++i)
+	{
+		if(s.compare(0, s.length()-i, rev_s, i, s.length()-i) == 0)
+		{
+			break;
+		}
+	}
+
+	return rev_s.substr(0, i)+s;
+}
+
 int main()
 {
 	string s = "aaaaaaaba";
-	cout << shortestPalindrome1(s) << "\n";
-
+	cout << shortestPalindrome1(s) << '\n';
+	cout << shortestPalindrome2(s) << '\n';
 
 	return 0;
 }
