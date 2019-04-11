@@ -75,7 +75,7 @@ int lengthOfLongestSubstringKDistinct(const string& s, int k)
 	// probing s using window (i, j)
 	int i = 0, j = 0;
 
-	for (; j < s.length();)
+	while (j < s.length())
 	{	// loop ends when rhs of the window exceeds array boundary
 		if (unique_count != k or letter_count[s[j]] != 0)
 		{	// if the substring contain less than k character 
