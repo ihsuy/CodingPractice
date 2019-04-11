@@ -66,15 +66,15 @@ TreeNode* inorderSuccessor(TreeNode* root, TreeNode* p)
 
 TreeNode* inorderSuccessor_iterative(TreeNode* root, TreeNode* p)
 {	// is there duplicates?
-	if(root == nullptr or p == nullptr)
+	if (root == nullptr or p == nullptr)
 	{
 		return nullptr;
 	}
 
 	TreeNode* tmp = p->right;
-	if(tmp)
+	if (tmp)
 	{
-		while(tmp->left != nullptr)
+		while (tmp->left != nullptr)
 		{
 			tmp = tmp->left;
 		}
@@ -84,10 +84,10 @@ TreeNode* inorderSuccessor_iterative(TreeNode* root, TreeNode* p)
 
 	TreeNode* result = nullptr;
 
-	while(root != nullptr)
+	while (root != nullptr)
 	{
-		if(root->val > p->val)
-		{	
+		if (root->val > p->val)
+		{
 			result = root;
 			root = root->left;
 		}
@@ -98,6 +98,45 @@ TreeNode* inorderSuccessor_iterative(TreeNode* root, TreeNode* p)
 	}
 
 	return result;
+}
+
+TreeNode* inorderSuccessor(TreeNode* root, TreeNode* p)
+{
+	if (root == nullptr or p == nullptr)
+	{
+		return nullptr;
+	}
+
+	TreeNode* prev_high = nullptr;
+	while (root != nullptr)
+	{
+		if (root->val > p->val)
+		{
+			prev_high = root;
+			root = root->left;
+		}
+		else if (root == p)
+		{
+			if (root->right != nullptr)
+			{
+				root = root->right;
+				while (root->left != nullptr)
+				{
+					root = root->left;
+				}
+				return root;
+			}
+			else
+			{
+				return prev_high;
+			}
+		}
+		else
+		{
+			root = root->right;
+		}
+	}
+	return prev_high;
 }
 
 int main()
