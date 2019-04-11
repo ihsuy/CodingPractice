@@ -31,7 +31,13 @@ inline void inspect(T& t) {typename T::iterator i1 = t.begin(), i2 = t.end(); wh
 using namespace std;
 
 /*
-
+Equations are given in the format A / B = k, where A and B are variables 
+represented as strings, and k is a real number (floating point number). 
+Given some queries, return the answers. If the answer does not exist, 
+return -1.0.
+Given a / b = 2.0, b / c = 3.0. 
+queries are: a / c = ?, b / a = ?, a / e = ?, a / a = ?, x / x = ? . 
+return [6.0, 0.5, -1.0, 1.0, -1.0 ].
 */
 
 struct divisionNode
@@ -49,7 +55,9 @@ struct divisionNode
 };
 
 vector<double> calcEquation(vector<pair<string, string>> equations, vector<double>& values, vector<pair<string, string>> queries)
-{
+{	// note that this is a graph problem
+
+	// create the graph
 	unordered_map<string, divisionNode*> vars;
 
 	for (int i = 0; i < equations.size(); ++i)
@@ -87,6 +95,7 @@ vector<double> calcEquation(vector<pair<string, string>> equations, vector<doubl
 		}
 	}
 
+	// do the bfs
 	vector<double> result;
 	for (int i = 0; i < queries.size(); ++i)
 	{
@@ -107,7 +116,9 @@ vector<double> calcEquation(vector<pair<string, string>> equations, vector<doubl
 
 		queue<pair<divisionNode*, double>> todo;
 		todo.push({vars[from_var], 1.0});
+
 		unordered_set<divisionNode*> visited;
+
 		bool found = false;
 		while (not todo.empty())
 		{
@@ -136,6 +147,7 @@ vector<double> calcEquation(vector<pair<string, string>> equations, vector<doubl
 			result.push_back(-1.0);
 		}
 	}
+	
 	return result;
 }
 
@@ -152,4 +164,3 @@ int main()
 
 	return 0;
 }
-//{"b","a"},{"a","f"},{"f","f"},{"e","e"},{"c","c"},{"a","c"},
