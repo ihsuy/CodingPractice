@@ -71,12 +71,37 @@ int firstUniqChar(const string& s)
 	return order.front();
 }
 
+int firstUniqChar2(const string& s) 
+{	// use list for constant time removal
+
+	unordered_map<char, int> counter;
+	for(int i = 0; i < s.length(); ++i)
+	{
+		if(counter.count(s[i])==0)
+		{
+			counter[s[i]] = 1;
+		}
+		else
+		{
+			counter[s[i]]++;
+		}
+	}
+	for(int i = 0; i < s.length(); ++i)
+	{
+		if(counter[s[i]] == 1)
+		{
+			return i;
+		}
+	}
+	return -1;
+}
+
 
 int main()
 {
 	string s = "yushiqiu";
 
 	cout << firstUniqChar(s) << endl;
-
+	cout << firstUniqChar2(s) << endl;
 	return 0;
 }
