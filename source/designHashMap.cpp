@@ -52,9 +52,9 @@ public:
 
 	// very naive implementation assuming the hashmap size is fixed
 	// there's no need to handle key collision and such
-	vector<int> storage{1000001, -1};
+	int* storage;
 
-	MyHashMap() {}
+	MyHashMap() : storage(new int[1000001]){}
 
 	/** value will always be non-negative. */
 	void put(int key, int value) 
