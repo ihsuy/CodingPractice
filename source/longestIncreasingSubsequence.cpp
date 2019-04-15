@@ -42,6 +42,7 @@ Explanation: The longest increasing subsequence is [2,3,7,101], therefore the le
 
 
 // solution 1 recursive with memorization
+// O(n^2)
 int helper(vector<int>& nums, const int& prev_i, const int& i,
            int** buffer)
 {	// recursively proceed in the vector
@@ -101,6 +102,7 @@ int lengthOfLIS_memorization(vector<int>& nums)
 // solution 2 dynamic programming
 // 10,9,2,5,3,7,101,18
 // 1  1 1 2 2 3 4   4
+// O(n^2)
 int lengthOfLIS_dp(vector<int>& nums)
 {	// use the fact that for every element in array nums
 	// LIS in nums[0, current_pos] is the length of
@@ -130,13 +132,72 @@ int lengthOfLIS_dp(vector<int>& nums)
 	return result;
 }
 
+// solution 3 dynamic programming with binary search
+// O(nlog(n))
+
+int bs(int* nums, const int& len, const int& val)
+{	// straight-forward binary search
+	// return index if the val searching exists
+	// else return the index of the val that's immediately larger than it
+	// return len if val is larger than the last item
+	int low = 0, high = len - 1;
+
+	while (low <= high)
+	{
+		int mid = (low + high) / 2;
+
+		if (nums[mid] == val)
+		{
+			return mid;
+		}
+
+		if (nums[mid] < val)
+		{
+			low = mid + 1;
+		}
+		else
+		{
+			high = mid - 1;
+		}
+	}
+
+	return max(low, high);
+}
+
+int lengthOfLIS_dp_bs(vector<int>& nums)
+{
+	int* dp = new int[nums.size()];
+	memset(dp, 0, sizeof(int)*nums.size());
+
+	int len = 0;
+
+	for(int i = 0; i < nums.size(); ++i)
+	{	// insert every element in its 'suppoed to be' position
+		// increment len only when this element is larger than all previous
+		// elements in dp
+		// this approach is kind of like trying out all possibilities 
+		// and increase len only when we see an element that larger than
+		// all previous possible result
+		int index = bs(dp, len, nums[i]);
+
+		dp[index] = nums[i];
+
+		if(index == len)
+		{
+			len++;
+		}
+	}
+
+	return len;
+}
 
 int main()
 {
-	vector<int> v {10, 9, 2, 5, 3, 7, 101, 18, 16};
+	vector<int> v {10, 9, 2, 5, 3, 4, 7, 101, 18, 16, 17};
 
 	cout << lengthOfLIS_memorization(v) << '\n';
 	cout << lengthOfLIS_dp(v) << '\n';
+	cout << lengthOfLIS_dp_bs(v) << '\n';
 
 	return 0;
 }
