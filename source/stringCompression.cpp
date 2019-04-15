@@ -69,38 +69,67 @@ int encode(int n, vector<char>& s, const int& i, int& j)
 	return result;
 }
 
-int compression(vector<char>& s)
+int compress(vector<char>& s)
 {
 	if (s.size() == 0)
 	{
 		return 0;
 	}
 
-	int result = 0;
 	int prev = 0;
-	for (int i = 1 ,j = 1; i < s.size() + 1; ++i)
+	int i = 1 , j = 1;
+	for (; i < s.size() + 1; ++i)
 	{
 		if (i == s.size() or s[i] != s[prev])
 		{	// number of duplicates
 			int count = i - prev;
-			
-			// encode and get len
-			int dlen = encode(count, s, i, j);
+			// encode
+			encode(count, s, i, j);
 
-			result += (1 + dlen);
 			prev = i;
 		}
 	}
 	// only keep the encoded portion of s
-	s.erase(s.begin() + result, s.end());
+	s.erase(s.begin() + j - 1, s.end());
 
-	return result;
+	return j - 1;
+}
+
+int compress_concise(vector<char>& chars) {
+	const int n = chars.size();
+
+	int p = 0;
+
+	for (int i = 1; i <= n; ++i)
+	{
+		int count = 1;
+
+		while (i < n && chars[i] == chars[i - 1])
+		{
+			++i;
+			++count;
+		}
+
+		chars[p++] = chars[i - 1];
+
+		if (count == 1)
+		{
+			continue;
+		}
+
+		for (char c : to_string(count))
+		{
+			chars[p++] = c;
+		}
+	}
+
+	return p;
 }
 
 int main()
 {
 	vector<char> v {'a', 'a', 'a', 'b', 'b', 'a', 'x', 'a', 'a', 'a', 'a', 'b', 'a', 'a', 'a'};
-	cout << "compressed length: " << compression(v) << '\n';
+	cout << "compressed length: " << compress(v) << '\n';
 	inspect<vector<char>>(v);
 	return 0;
 }
