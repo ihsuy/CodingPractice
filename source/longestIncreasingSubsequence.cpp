@@ -40,6 +40,8 @@ Output: 4
 Explanation: The longest increasing subsequence is [2,3,7,101], therefore the length is 4.
 */
 
+
+// solution 1 recursive with memorization
 int helper(vector<int>& nums, const int& prev_i, const int& i,
            int** buffer)
 {	// recursively proceed in the vector
@@ -53,9 +55,9 @@ int helper(vector<int>& nums, const int& prev_i, const int& i,
 	}
 	// the index of first dimention of buffer
 	// is "shifted"
-	if(buffer[prev_i+1][i] != -1)
+	if (buffer[prev_i + 1][i] != -1)
 	{
-		return buffer[prev_i+1][i];
+		return buffer[prev_i + 1][i];
 	}
 
 	int res1 = 0, res2 = 0;
@@ -72,35 +74,69 @@ int helper(vector<int>& nums, const int& prev_i, const int& i,
 	// compare and get the greater result
 	res1 = max(res1, res2);
 	// memorization
-	buffer[prev_i+1][i] = res1;
+	buffer[prev_i + 1][i] = res1;
 
 	return res1;
 }
 
-int lengthOfLIS(vector<int>& nums)
+int lengthOfLIS_memorization(vector<int>& nums)
 {
 	if (nums.size() == 0)
 	{
 		return 0;
 	}
 	// prepare buffer
-	int** buffer = new int*[nums.size()+1];
-	for(int i = 0; i < nums.size(); ++i)
+	int** buffer = new int*[nums.size() + 1];
+	for (int i = 0; i < nums.size(); ++i)
 	{
 		buffer[i] = new int[nums.size()];
 		memset(buffer[i], -1, sizeof(int)*nums.size());
 	}
 
-	// begin from -1 meaning the first entry of 
+	// begin from -1 meaning the first entry of
 	// array could be included or not
 	return helper(nums, -1, 0, buffer);
 }
 
+// solution 2 dynamic programming
+// 10,9,2,5,3,7,101,18
+// 1  1 1 2 2 3 4   4
+int lengthOfLIS_dp(vector<int>& nums)
+{	// use the fact that for every element in array nums
+	// LIS in nums[0, current_pos] is the length of
+	// the longest LIS for the largest element
+	// that's smaller than the current element and locates before it
+	int* dp = new int[nums.size()];
+	memset(dp, 0, sizeof(int)*nums.size());
+
+	int result = 0;
+	for (int i = 0; i < nums.size(); ++i)
+	{
+		int maxlen = 0;
+		for (int j = 0; j < i; ++j)
+		{
+			if (nums[j] < nums[i])
+			{	// find the largest dp in all elements
+				// on the left of i and are smaller than nums[i]
+				maxlen = max(maxlen, dp[j]);
+			}
+		}
+
+		dp[i] = maxlen + 1;
+		// result should be updated everytime when new dp is produced
+		result = max(result, dp[i]);
+	}
+
+	return result;
+}
+
+
 int main()
 {
-	vector<int> v {10,9,2,5,3,7,101,18};
+	vector<int> v {10, 9, 2, 5, 3, 7, 101, 18, 16};
 
-	cout << lengthOfLIS(v) << '\n';
+	cout << lengthOfLIS_memorization(v) << '\n';
+	cout << lengthOfLIS_dp(v) << '\n';
 
 	return 0;
 }
