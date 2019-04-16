@@ -62,7 +62,7 @@ void show_linkedList(ListNode* head)
 	}
 	cout << "null\n";
 }
-
+// create linkedlist from vector
 ListNode* linkedList(const vector<int>& v)
 {
 	if (v.size() == 0)
@@ -90,11 +90,10 @@ ListNode* reverseBetween(ListNode* head, int m, int n)
 	}
 	
 	ListNode* temp = head;
-	// move to m-1 th position
+	// if m is not 1 move to m-1 th position
 	ListNode* end_of_first_part, *end_of_middle_part;
-
 	if (m != 1)
-	{
+	{	// this process seperate out the part 1(unreversed portion 1)
 		for (int i = 1; i < m - 1; ++i)
 		{
 			head = head->next;
@@ -103,9 +102,13 @@ ListNode* reverseBetween(ListNode* head, int m, int n)
 		head = head->next;
 	}
 
+	// tail of the middle reversed part
+	// since its going to be reversed its 
+	// current head should become its tail
 	end_of_middle_part = head;
 	auto next = head->next;
 
+	// reverse m~n
 	for (int i = m; i < n; ++i)
 	{
 		auto nextnext = next->next;
@@ -115,14 +118,19 @@ ListNode* reverseBetween(ListNode* head, int m, int n)
 	}
 
 	if (m != 1)
-	{
+	{	// if m is not 1, part 1 length isn't 0.
+		// we then need to connect its end to the 
+		// new beginning of the middle reversed portion
 		end_of_first_part->next = head;
 	}
 	else
-	{
+	{	// if theres no part 1, head now is the 
+		// new head of the linkedlist
 		temp = head;
 	}
 
+	// connect the end of the middle part to part2 
+	// (unreversed portion2 if doesnt exist nullptr)
 	end_of_middle_part->next = next;
 
 	return temp;
