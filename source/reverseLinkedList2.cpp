@@ -84,22 +84,55 @@ ListNode* linkedList(const vector<int>& v)
 ListNode* reverseBetween(ListNode* head, int m, int n)
 {	// Note: m starts from 1 (not 0)
 	// and the range is [m, n] inclusive
-	ListNode* temp = head;
-	// move to m-th position
-	for (int i = 1; i < m - 1; ++i)
+	if(head == nullptr)
 	{
+		return nullptr;
+	}
+	
+	ListNode* temp = head;
+	// move to m-1 th position
+	ListNode* end_of_first_part, *end_of_middle_part;
+
+	if (m != 1)
+	{
+		for (int i = 1; i < m - 1; ++i)
+		{
+			head = head->next;
+		}
+		end_of_first_part = head;
 		head = head->next;
 	}
 
+	end_of_middle_part = head;
+	auto next = head->next;
+
+	for (int i = m; i < n; ++i)
+	{
+		auto nextnext = next->next;
+		next->next = head;
+		head = next;
+		next = nextnext;
+	}
+
+	if (m != 1)
+	{
+		end_of_first_part->next = head;
+	}
+	else
+	{
+		temp = head;
+	}
+
+	end_of_middle_part->next = next;
 
 	return temp;
 }
 
 int main()
 {
-	auto mylist = linkedList({1, 2, 3, 4, 5});
+	auto mylist = linkedList({1,2,3,4,5,6,7,8});
 	show_linkedList(mylist);
-	auto mylist_r = reverseBetween(mylist, 2, 4);
+	auto mylist_r = reverseBetween(mylist, 1, 8);
 	show_linkedList(mylist_r);
 	return 0;
 }
