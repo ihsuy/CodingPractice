@@ -77,6 +77,6 @@ int main()
 	const string s3 = "aaabb";
 	const string s4 = "aabbb";
 	printf("%s and %s are anagram? : %d\n", s1.c_str(), s2.c_str(), isAnagram(s1, s2));
-
+	printf("%s and %s are anagram? : %d\n", s3.c_str(), s4.c_str(), isAnagram(s3, s4));
 	return 0;
 }
