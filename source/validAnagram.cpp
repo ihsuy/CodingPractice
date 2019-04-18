@@ -39,27 +39,31 @@ Input: s = "anagram", t = "nagaram"
 Output: true
 */
 
-bool isAnagram(string s, string t) {
+bool isAnagram(string s, string t)
+{	
 	if (s.length() != t.length())
-	{
+	{	// can't be anagram if sizes are equal
 		return false;
 	}
+
+	// use arr as a composition map
 	int* arr = new int[27];
 	memset(arr, 0, sizeof(int) * 27);
 
 	for (auto& ch : s)
-	{
+	{	// count occurance every character
 		arr[ch - 'a'] ++;
 	}
 
 	for (auto& ch : t)
-	{
+	{	
 		int c = ch - 'a';
 		if (arr[c] == 0)
-		{
+		{	// this means we've now seen a character
+			// in t that wasn't in s
 			return false;
 		}
-
+		// decrement counter after seeing the same character in t
 		arr[c]--;
 	}
 
