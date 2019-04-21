@@ -31,7 +31,7 @@ inline void inspect(T& t) {typename T::iterator i1 = t.begin(), i2 = t.end(); wh
 using namespace std;
 
 /*
-
+multiply two polynomials as well as composing them
 */
 
 vector<int> polyMultiplication(const vector<int>& p1, const vector<int>& p2)
@@ -95,8 +95,8 @@ vector<int> polyComposition(const vector<int>& p1, const vector<int>& p2)
 
 
 int main()
-{	
-	vector<int> p1 {1, 1 ,1};
+{
+	vector<int> p1 {1, 1 , 1};
 	vector<int> p2 {1, -1};
 	auto result = polyComposition(p2, p1);
 	inspect<vector<int>>(result);

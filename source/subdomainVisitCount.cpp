@@ -44,7 +44,7 @@ vector<string> subdomainVisits(vector<string>& cpdomains)
 
 		string domains;
 		buffer >> domains;
-s
+		s
 		while (true)
 		{
 			if (counter.find(domains) == counter.end())
@@ -57,7 +57,7 @@ s
 			}
 
 			auto dot_pos = find(domains.begin(), domains.end(), '.');
-			if(dot_pos == domains.end())
+			if (dot_pos == domains.end())
 			{
 				break;
 			}
@@ -65,8 +65,8 @@ s
 		}
 	}
 
-	for(auto& item : counter)
-	{	
+	for (auto& item : counter)
+	{
 		string msg = to_string(item.second) + " " + item.first;
 		result.push_back(msg);
 	}

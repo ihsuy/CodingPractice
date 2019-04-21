@@ -46,18 +46,18 @@ Output: [1,2]
 Explanation: The sum of 2 and 7 is 9. Therefore index1 = 1, index2 = 2.
 */
 
-vector<int> twoSum(vector<int>& numbers, int target) 
-{	// goal: find indices for 2 different 
+vector<int> twoSum(vector<int>& numbers, int target)
+{	// goal: find indices for 2 different
 	// numbers in array that sum up to the target
 	// addiontal information: the array is sorted
-	// have a sorted array as our input makes this 
-	// problem alot simpler, since we already "know" where 
+	// have a sorted array as our input makes this
+	// problem alot simpler, since we already "know" where
 	// each elements are, i.e. if the number we are looking at is too big
 	// we can just move to the left to find a smaller one and vise versa
 	int left = 0, right = numbers.size() - 1;
 
 	while (left < right)
-	{	
+	{
 		int temp = numbers[left] + numbers[right];
 		if (temp == target)
 		{
@@ -74,12 +74,12 @@ vector<int> twoSum(vector<int>& numbers, int target)
 		}
 	}
 	// indicate not found
-	return {-1, -1};
+	return { -1, -1};
 }
 
 int main()
 {
-	vector<int> numbers {2,7,11,15};
+	vector<int> numbers {2, 7, 11, 15};
 	int target = 9;
 	auto result = twoSum(numbers, target);
 	inspect<vector<int>>(result);

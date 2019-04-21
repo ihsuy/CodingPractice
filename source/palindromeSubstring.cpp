@@ -34,25 +34,25 @@ string longestPalindrome(string s)
 		for (int i = 0; i <= s.length() - win_max; ++i)
 		{
 			int b = i;
-			int e = i+win_max-1;
+			int e = i + win_max - 1;
 
-			while(b < e)
+			while (b < e)
 			{
-				if(s[b] != s[e])
+				if (s[b] != s[e])
 				{
 					break;
 				}
 				b++;
 				e--;
 			}
-			if(b >= e)
+			if (b >= e)
 			{
 				return s.substr(i, win_max);
 			}
 		}
 		win_max--;
 	}
-	return string(1,s[0]);
+	return string(1, s[0]);
 }
 
 int main()

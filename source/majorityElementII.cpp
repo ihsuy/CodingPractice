@@ -133,7 +133,7 @@ vector<int> majorityElement(vector<int>& nums)
 
 int main()
 {
-	vector<int> v = {1,3,1,8,7,3,3,6,1,3,1};
+	vector<int> v = {1, 3, 1, 8, 7, 3, 3, 6, 1, 3, 1};
 	auto result = majorityElement(v);
 	for (auto& item : result)
 	{

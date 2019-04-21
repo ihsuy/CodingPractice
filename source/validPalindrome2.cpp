@@ -31,8 +31,8 @@ inline void inspect(T& t) {typename T::iterator i1 = t.begin(), i2 = t.end(); wh
 using namespace std;
 
 /*
-Given a non-empty string s, 
-you may delete at most one character. 
+Given a non-empty string s,
+you may delete at most one character.
 Judge whether you can make it a palindrome.
 */
 

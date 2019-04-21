@@ -36,9 +36,9 @@ of each bar is 1, compute how much water it is able to trap after raining.
 */
 
 static const auto __ = []() {
-std::ios::sync_with_stdio(false);
-std::cin.tie(nullptr);
-return nullptr;
+	std::ios::sync_with_stdio(false);
+	std::cin.tie(nullptr);
+	return nullptr;
 }();
 
 // <<<<<<<<<<< Solutions <<<<<<<<<<<
@@ -175,7 +175,7 @@ int trap_optimal(const vector<int>& height)
 			if (*left > leftMax)
 			{	// note here, leftmax is updated strictly when
 				// *left <= *right
-				// which means that leftMax is always not larger 
+				// which means that leftMax is always not larger
 				// than current right value
 				leftMax = *left;
 			}

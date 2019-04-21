@@ -49,8 +49,8 @@ public:
 	LRUCache(int capacity) : cap(capacity)
 	{
 		ios_base::sync_with_stdio(false);
-        cin.tie(0);
-        cout.tie(0);
+		cin.tie(0);
+		cout.tie(0);
 	}
 
 	int get(int key)
@@ -106,8 +106,8 @@ int main()
 	cache.put(2, 1);
 	cache.put(2, 2);
 	cout << cache.get(2) << '\n';       // returns 1
-	cache.put(1, 1); 
-	cache.put(4, 1);    
+	cache.put(1, 1);
+	cache.put(4, 1);
 	cout << cache.get(2) << '\n';       // returns -1 (not found)
 
 	return 0;

@@ -69,16 +69,16 @@ int missingNumber_bitmanip(vector<int>& nums)
 	// will all cancel out
 	// what happens if one number is missing?
 	int final = nums.size();
-	for(int i = 0; i < nums.size(); ++i)
+	for (int i = 0; i < nums.size(); ++i)
 	{
-		final ^= (i^nums[i]);
+		final ^= (i ^ nums[i]);
 	}
 	return final;
 }
 
 int main()
 {
-	vector<int> nums {9,6,4,2,3,5,7,0,1};
+	vector<int> nums {9, 6, 4, 2, 3, 5, 7, 0, 1};
 	cout << missingNumber(nums) << '\n';
 	cout << missingNumber_bitmanip(nums) << '\n';
 	return 0;

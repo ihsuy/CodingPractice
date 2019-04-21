@@ -35,7 +35,7 @@ Write a function that takes a string as input and reverse only the vowels of a s
 
 unordered_set<char> vowels_list{'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'};
 
-string reverseVowels(string s) 
+string reverseVowels(string s)
 {	// straight forward seperate reverse and merge approach
 	vector<int> indices;
 	indices.reserve(s.length());
@@ -43,10 +43,10 @@ string reverseVowels(string s)
 	vector<int> vowels;
 	vowels.reserve(s.length());
 
-	for(int i = 0; i < s.length(); ++i)
+	for (int i = 0; i < s.length(); ++i)
 	{
 		char cur_char = s[i];
-		if(vowels_list.count(cur_char))
+		if (vowels_list.count(cur_char))
 		{
 			vowels.push_back(cur_char);
 			indices.push_back(i);
@@ -54,7 +54,7 @@ string reverseVowels(string s)
 	}
 
 	reverse(vowels.begin(), vowels.end());
-	for(int i = 0; i < indices.size(); ++i)
+	for (int i = 0; i < indices.size(); ++i)
 	{
 		s[indices[i]] = vowels[i];
 	}
@@ -68,14 +68,14 @@ string reverseVowels2(string s)
 	int p2 = s.length();
 	char temp;
 
-	while(p1 < p2)
+	while (p1 < p2)
 	{
-		while(not vowels_list.count(s[p1]) and p1 < p2)
+		while (not vowels_list.count(s[p1]) and p1 < p2)
 		{
 			p1++;
 		}
 
-		while(not vowels_list.count(s[p2]) and p1 < p2)
+		while (not vowels_list.count(s[p2]) and p1 < p2)
 		{
 			p2--;
 		}

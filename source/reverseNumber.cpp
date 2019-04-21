@@ -18,14 +18,14 @@ long long reverse(long long x) {
 
 	long long result = 0;
 	long long temp = x;
-	while(temp != 0)
+	while (temp != 0)
 	{
-		result = 10*result + temp%10;
-		temp /=10;
+		result = 10 * result + temp % 10;
+		temp /= 10;
 	}
 
 	int test = result;
-	if(test != result)
+	if (test != result)
 	{
 		return 0;
 	}

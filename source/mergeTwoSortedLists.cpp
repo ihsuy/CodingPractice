@@ -27,7 +27,7 @@ inline void inspect(typename T::iterator i1, typename T::iterator i2) {while (i1
 /////////////////////////////////////////////////////////////
 using namespace std;
 
-struct ListNode 
+struct ListNode
 {
 	int val;
 	ListNode *next;
@@ -36,14 +36,14 @@ struct ListNode
 
 ListNode* linkedList(const vector<int>& v)
 {
-	if(v.size() == 0)
+	if (v.size() == 0)
 	{
 		return nullptr;
 	}
 
 	ListNode* head = new ListNode(v[0]);
 	ListNode* temp = head;
-	for(int i = 1; i < v.size(); ++i)
+	for (int i = 1; i < v.size(); ++i)
 	{
 		temp->next = new ListNode(v[i]);
 		temp = temp->next;
@@ -54,12 +54,12 @@ ListNode* linkedList(const vector<int>& v)
 
 void showll(ListNode* head)
 {
-	if(head == nullptr)
+	if (head == nullptr)
 	{
 		return;
 	}
 
-	while(head != nullptr)
+	while (head != nullptr)
 	{
 		cout << head->val << "->";
 		head = head->next;
@@ -69,11 +69,11 @@ void showll(ListNode* head)
 
 ListNode* mergeTwoLists_silly(ListNode* l1, ListNode* l2)
 {
-	if(l1 == nullptr)
+	if (l1 == nullptr)
 	{
 		return l2;
 	}
-	else if(l2 == nullptr)
+	else if (l2 == nullptr)
 	{
 		return l1;
 	}
@@ -81,12 +81,12 @@ ListNode* mergeTwoLists_silly(ListNode* l1, ListNode* l2)
 	ListNode* head = nullptr;
 	ListNode* cur = nullptr;
 
-	while(l1 != nullptr or l2 != nullptr)
+	while (l1 != nullptr or l2 != nullptr)
 	{
 
-		if(l1 != nullptr and l2 != nullptr and (l1->val <= l2->val))
+		if (l1 != nullptr and l2 != nullptr and (l1->val <= l2->val))
 		{
-			if(head == nullptr)
+			if (head == nullptr)
 			{
 				head = new ListNode(l1->val);
 				cur = head;
@@ -98,9 +98,9 @@ ListNode* mergeTwoLists_silly(ListNode* l1, ListNode* l2)
 			}
 			l1 = l1->next;
 		}
-		else if(l1 != nullptr and l2 != nullptr and (l1->val > l2->val))
+		else if (l1 != nullptr and l2 != nullptr and (l1->val > l2->val))
 		{
-			if(head == nullptr)
+			if (head == nullptr)
 			{
 				head = new ListNode(l2->val);
 				cur = head;
@@ -112,14 +112,14 @@ ListNode* mergeTwoLists_silly(ListNode* l1, ListNode* l2)
 			}
 			l2 = l2->next;
 		}
-		else if(l1 != nullptr and l2 == nullptr)
+		else if (l1 != nullptr and l2 == nullptr)
 		{
 			cur->next = new ListNode(l1->val);
 			cur = cur->next;
 
 			l1 = l1->next;
 		}
-		else if(l1 == nullptr and l2 != nullptr)
+		else if (l1 == nullptr and l2 != nullptr)
 		{
 			cur->next = new ListNode(l2->val);
 			cur = cur->next;
@@ -136,9 +136,9 @@ ListNode* mergeTwoLists(ListNode* l1, ListNode* l2)
 	ListNode* result = new ListNode(0);
 	ListNode* head = result;
 
-	while(l1 != nullptr and l2 != nullptr)
+	while (l1 != nullptr and l2 != nullptr)
 	{
-		if(l1->val <= l2->val)
+		if (l1->val <= l2->val)
 		{
 			head->next = new ListNode(l1->val);
 			l1 = l1->next;
@@ -151,14 +151,14 @@ ListNode* mergeTwoLists(ListNode* l1, ListNode* l2)
 		head = head->next;
 	}
 
-	head->next = (l1 == nullptr)?l2:l1;;
+	head->next = (l1 == nullptr) ? l2 : l1;;
 	return result->next;
 }
 
 int main()
 {
-	vector<int> v1 = {1,2,5,6,8};
-	vector<int> v2 = {1,3,5,9};
+	vector<int> v1 = {1, 2, 5, 6, 8};
+	vector<int> v2 = {1, 3, 5, 9};
 
 	auto l1 = linkedList(v1);
 	auto l2 = linkedList(v2);

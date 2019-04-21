@@ -50,7 +50,7 @@ void inorderTraverse(TreeNode* root, long long& prev_val, bool& bad)
 	}
 
 	prev_val = root->val;
-	
+
 	inorderTraverse(root->right, prev_val, bad);
 }
 

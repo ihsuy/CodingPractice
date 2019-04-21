@@ -82,17 +82,17 @@ int main()
 {
 	vector<Interval> intervals
 	{
-		Interval(1,3),
-		Interval(2,6),
-		Interval(8,10),
-		Interval(15,18)
+		Interval(1, 3),
+		Interval(2, 6),
+		Interval(8, 10),
+		Interval(15, 18)
 	};
 
 	auto result = merge(intervals);
 
 	cout << "merged intervals: \n";
-	
-	for(auto& interval : result)
+
+	for (auto& interval : result)
 	{
 		cout << '[' << interval.start << ", " << interval.end << "]\n";
 	}

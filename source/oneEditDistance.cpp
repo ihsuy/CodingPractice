@@ -40,7 +40,7 @@ Delete a character from s to get t
 Replace a character of s to get t
 */
 
-bool isOneEditDistance(string s, string t) 
+bool isOneEditDistance(string s, string t)
 {
 	int larger_len = max(s.length(), t.length());
 	int smaller_len = min(s.length(), t.length());

@@ -42,7 +42,7 @@ int numUniqueEmails(vector<string>& emails)
 		}
 		uniqueEmails.insert(washed);
 	}
-	for(auto item : uniqueEmails)
+	for (auto item : uniqueEmails)
 	{
 		cout << item << endl;
 	}

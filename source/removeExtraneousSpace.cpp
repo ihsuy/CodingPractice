@@ -31,7 +31,7 @@ inline void inspect(T& t) {typename T::iterator i1 = t.begin(), i2 = t.end(); wh
 using namespace std;
 
 /*
-remove all extraneous spaces and only leave one
+remove all extraneous spaces and only leave one if there was multiple spaces
 */
 
 void removeExtranousSpace(string& s)

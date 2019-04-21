@@ -38,7 +38,7 @@ Given an array, rotate the array to the right by k steps, where k is non-negativ
 void rotate(vector<int>& nums, int k)
 {
 	int len = nums.size();
-	if(len <= 1 or k % len == 0)
+	if (len <= 1 or k % len == 0)
 	{
 		return;
 	}
@@ -48,19 +48,19 @@ void rotate(vector<int>& nums, int k)
 	vector<int> result;
 	result.reserve(len);
 
-	for(int i = len-k; i != len-k-1; i = (i+1)%len)
+	for (int i = len - k; i != len - k - 1; i = (i + 1) % len)
 	{
 		result.push_back(nums[i]);
 	}
-	result.push_back(nums[len-k-1]);
+	result.push_back(nums[len - k - 1]);
 
-	nums=result;
+	nums = result;
 }
 
 void rotate2(vector<int>& nums, int k)
 {
 	int len = nums.size();
-	if(len <= 1 or k % len == 0)
+	if (len <= 1 or k % len == 0)
 	{
 		return;
 	}
@@ -69,10 +69,10 @@ void rotate2(vector<int>& nums, int k)
 
 	vector<int> result(len);
 
-	copy(nums.begin()+len-k, nums.end(), result.begin());
-	copy(nums.begin(), nums.begin()+len-k, result.begin()+k);
+	copy(nums.begin() + len - k, nums.end(), result.begin());
+	copy(nums.begin(), nums.begin() + len - k, result.begin() + k);
 
-	nums=result;
+	nums = result;
 }
 
 void rotate3(vector<int>& nums, int k)
@@ -88,13 +88,13 @@ void rotate3(vector<int>& nums, int k)
 
 	int count = 0;
 
-	for(int i = 0; count < len; ++i)
+	for (int i = 0; count < len; ++i)
 	{
 		int current = i;
 		int prev = nums[current];
 		do
 		{
-			int next = (current + k)%len;
+			int next = (current + k) % len;
 			int temp = nums[next];
 			nums[next] = prev;
 			prev = temp;
@@ -102,7 +102,7 @@ void rotate3(vector<int>& nums, int k)
 
 			count ++;
 		}
-		while(i != current);
+		while (i != current);
 	}
 
 }
@@ -120,16 +120,16 @@ void rotate3_1(vector<int>& nums, int k)
 
 	int count = 0;
 
-	for (int start = 0; count < nums.size(); start++) 
+	for (int start = 0; count < nums.size(); start++)
 	{
 		int current = start;
 
 		int prev = nums[start];
 
-		do 
+		do
 		{
 			int next = (current + k) % len;
-			
+
 			int temp = nums[next];
 
 			nums[next] = prev;
@@ -137,7 +137,7 @@ void rotate3_1(vector<int>& nums, int k)
 			current = next;
 
 			count++;
-		} 
+		}
 		while (start != current);
 	}
 }
@@ -146,7 +146,7 @@ void rotate4(vector<int>& nums, int k)
 {
 	auto iteb = nums.begin();
 	auto itee = nums.end();
-	auto itek = iteb+k;
+	auto itek = iteb + k;
 	reverse(iteb, itee);
 	reverse(iteb, itek);
 	reverse(itek, itee);
@@ -154,7 +154,7 @@ void rotate4(vector<int>& nums, int k)
 
 int main()
 {
-	vector<int> v{1,2,3,4,5,6,7,8,9};
+	vector<int> v{1, 2, 3, 4, 5, 6, 7, 8, 9};
 
 	rotate4(v, 2);
 

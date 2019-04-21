@@ -46,32 +46,32 @@ int maxAreaOfIsland(vector<vector<int>>& grid)
 
 	int gridh = grid.size(), gridw = grid[0].size();
 
-	for(int r = 0; r < gridh; ++r)
+	for (int r = 0; r < gridh; ++r)
 	{
-		for(int c = 0; c < gridw; ++c)
+		for (int c = 0; c < gridw; ++c)
 		{
-			if(grid[r][c] == 1)
+			if (grid[r][c] == 1)
 			{	// this is a valid starting point
 				// search and count 1s
 				queue<pair<int, int>> todo;
 
-				todo.push({r,c});
+				todo.push({r, c});
 
 				grid[r][c] = 2; // mark visited
 
 				int area = 1;
 
-				while(not todo.empty())
+				while (not todo.empty())
 				{
 					auto p = todo.front();
 					todo.pop();
 
-					for(int d = 0; d < 4; ++d)
+					for (int d = 0; d < 4; ++d)
 					{
 						int peek_r = p.first + directions[d],
-							peek_c = p.second + directions[d+1];
-						if(peek_r >= 0 and peek_c >= 0 and peek_r < gridh and peek_c < gridw
-							and grid[peek_r][peek_c] == 1)
+						    peek_c = p.second + directions[d + 1];
+						if (peek_r >= 0 and peek_c >= 0 and peek_r < gridh and peek_c < gridw
+						        and grid[peek_r][peek_c] == 1)
 						{
 							todo.push({peek_r, peek_c});
 
@@ -82,7 +82,7 @@ int maxAreaOfIsland(vector<vector<int>>& grid)
 				}
 
 				// compare with max_area and update
-				if(area > max_area)
+				if (area > max_area)
 				{
 					max_area = area;
 				}
@@ -110,9 +110,9 @@ int main()
 	{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 	};
-	
+
 	cout << "grid1 result: " << maxAreaOfIsland(grid) << endl;
-	
+
 	cout << "grid2 result: " << maxAreaOfIsland(grid2) << endl;
 
 	return 0;

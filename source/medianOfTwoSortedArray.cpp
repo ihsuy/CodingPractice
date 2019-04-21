@@ -5,27 +5,27 @@ using namespace std;
 double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
 	int len1 = nums1.size();
 	int len2 = nums2.size();
-	if(len1 == 0)
+	if (len1 == 0)
 	{
-		if(len2%2 == 0)
+		if (len2 % 2 == 0)
 		{
-			return (nums2[len2/2]+nums2[len2/2-1])/2.0;
+			return (nums2[len2 / 2] + nums2[len2 / 2 - 1]) / 2.0;
 		}
 		else
 		{
-			return nums2[len2/2];
+			return nums2[len2 / 2];
 		}
 	}
-	if(len2 == 0)
+	if (len2 == 0)
 	{
-		if(len1%2 == 0)
+		if (len1 % 2 == 0)
 		{
 			cout << "h" << endl;
-			return (nums1[len1/2]+nums1[len1/2-1])/2.0;
+			return (nums1[len1 / 2] + nums1[len1 / 2 - 1]) / 2.0;
 		}
 		else
 		{
-			return nums1[len1/2];
+			return nums1[len1 / 2];
 		}
 	}
 

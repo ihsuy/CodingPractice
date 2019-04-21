@@ -42,98 +42,98 @@ int romanToInt(string s)
 
 		switch (curr)
 		{
-			case 'M':
-				result += 1000;
-				break;
-			case 'D':
-				result += 500;
-				break;
-			case 'C':
+		case 'M':
+			result += 1000;
+			break;
+		case 'D':
+			result += 500;
+			break;
+		case 'C':
+		{
+			if (hasNext)
 			{
-				if (hasNext)
-				{
-					char next = s[i + 1];
+				char next = s[i + 1];
 
-					if (next == 'D')
-					{
-						result += cd;
-						i++;
-					}
-					else if (next == 'M')
-					{
-						result += cm;
-						i++;
-					}
-					else
-					{
-						result += 100;
-					}
+				if (next == 'D')
+				{
+					result += cd;
+					i++;
+				}
+				else if (next == 'M')
+				{
+					result += cm;
+					i++;
 				}
 				else
 				{
 					result += 100;
 				}
-				break;
 			}
-			case 'L':
-				result += 50;
-				break;
-			case 'X':
+			else
 			{
-				if (hasNext)
-				{
-					char next = s[i + 1];
+				result += 100;
+			}
+			break;
+		}
+		case 'L':
+			result += 50;
+			break;
+		case 'X':
+		{
+			if (hasNext)
+			{
+				char next = s[i + 1];
 
-					if (next == 'L')
-					{
-						result += xl;
-						i++;
-					}
-					else if (next == 'C')
-					{
-						result += xc;
-						i++;
-					}
-					else
-					{
-						result += 10;
-					}
+				if (next == 'L')
+				{
+					result += xl;
+					i++;
+				}
+				else if (next == 'C')
+				{
+					result += xc;
+					i++;
 				}
 				else
 				{
 					result += 10;
 				}
-				break;
 			}
-			case 'V':
-				result += 5;
-				break;
-			case 'I':
+			else
 			{
-				if (hasNext)
-				{
-					char next = s[i + 1];
+				result += 10;
+			}
+			break;
+		}
+		case 'V':
+			result += 5;
+			break;
+		case 'I':
+		{
+			if (hasNext)
+			{
+				char next = s[i + 1];
 
-					if (next == 'V')
-					{
-						result += iv;
-						i++;
-					}
-					else if (next == 'X')
-					{
-						result += ix;
-						i++;
-					}
-					else
-					{
-						result += 1;
-					}
+				if (next == 'V')
+				{
+					result += iv;
+					i++;
+				}
+				else if (next == 'X')
+				{
+					result += ix;
+					i++;
 				}
 				else
 				{
 					result += 1;
 				}
 			}
+			else
+			{
+				result += 1;
+			}
+		}
 		}
 	}
 	return result;

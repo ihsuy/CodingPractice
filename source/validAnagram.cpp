@@ -40,7 +40,7 @@ Output: true
 */
 
 bool isAnagram(string s, string t)
-{	
+{
 	if (s.length() != t.length())
 	{	// can't be anagram if sizes are equal
 		return false;
@@ -56,7 +56,7 @@ bool isAnagram(string s, string t)
 	}
 
 	for (auto& ch : t)
-	{	
+	{
 		int c = ch - 'a';
 		if (arr[c] == 0)
 		{	// this means we've now seen a character
