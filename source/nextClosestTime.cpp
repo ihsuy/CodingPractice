@@ -27,7 +27,7 @@ using namespace std;
 
 string nextClosestTime(string time)
 {
-	vector<int> tt(4);
+  		vector<int> tt(4);
 	tt[0] = time[0] - '0';
 	tt[1] = time[1] - '0';
 	tt[2] = time[3] - '0';

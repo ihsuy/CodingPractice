@@ -54,7 +54,9 @@ struct divisionNode
 	}
 };
 
-vector<double> calcEquation(vector<pair<string, string>> equations, vector<double>& values, vector<pair<string, string>> queries)
+vector<double> calcEquation(vector<pair<string, string>> equations,
+                            vector<double>& values,
+                            vector<pair<string, string>> queries)
 {	// note that this is a graph problem
 
 	// create the graph
@@ -83,7 +85,8 @@ vector<double> calcEquation(vector<pair<string, string>> equations, vector<doubl
 		{
 			if (vars.count(equations[i].second) != 0)
 			{
-				vars[equations[i].first]->add_neighbour(vars[equations[i].second], values[i]);
+				vars[equations[i].first]->add_neighbour(vars[equations[i].second],
+				                                        values[i]);
 			}
 			else
 			{
@@ -137,7 +140,10 @@ vector<double> calcEquation(vector<pair<string, string>> equations, vector<doubl
 			{
 				if (visited.count(current_node->neighbours[j]) == 0)
 				{
-					todo.push({current_node->neighbours[j], current_val * current_node->values[current_node->neighbours[j]]});
+					todo.push({current_node->neighbours[j],
+					           current_val *
+					           current_node->values[current_node->neighbours[j]]
+					          });
 					visited.insert(current_node->neighbours[j]);
 				}
 			}
@@ -156,7 +162,13 @@ int main()
 {
 	vector<pair<string, string>> vp {{"a", "b"}, {"e", "f"}, {"b", "e"}};
 	vector<double> values {3.4, 1.4, 2.3};
-	vector<pair<string, string>> queries{{"b", "a"}, {"a", "f"}, {"f", "f"}, {"e", "e"}, {"c", "c"}, {"a", "c"}, {"f", "e"}};
+	vector<pair<string, string>> queries
+	{
+		{"b", "a"}, {"a", "f"},
+		{"f", "f"}, {"e", "e"},
+		{"c", "c"}, {"a", "c"},
+		{"f", "e"}
+	};
 
 	auto result = calcEquation(vp, values, queries);
 
