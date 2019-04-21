@@ -106,9 +106,9 @@ ListNode* removeElements2(ListNode* head, int val)
 
 	auto temp = head;
 	while (head->next != nullptr)
-	{	
+	{
 		while (head->next != nullptr and (head->next->val != val))
-		{	
+		{
 			head = head->next;
 		}
 
@@ -124,7 +124,7 @@ ListNode* removeElements2(ListNode* head, int val)
 
 	// the first element's value was val?
 	// remove it and increment head
-	if(temp->val == val)
+	if (temp->val == val)
 	{
 		auto t = temp;
 		temp = temp->next;

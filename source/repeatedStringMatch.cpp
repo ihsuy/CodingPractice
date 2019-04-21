@@ -55,13 +55,13 @@ int repeatedStringMatch(const string& A, const string& B)
 		temp_ai = ai + 1;
 
 		// else check if this is the correct starting point
-		while (ai != temp_ai - 2  
-			and bi < blen and A[ai] == B[bi])
+		while (ai != temp_ai - 2
+		        and bi < blen and A[ai] == B[bi])
 		{	// wrap searching in A
 			ai = (ai + 1) % alen;
 			bi++;
 
-			if(temp_ai - 2 < 0 and ai == 0)
+			if (temp_ai - 2 < 0 and ai == 0)
 			{	// handle loop breaking corner case
 				// when starting point and end point
 				// has to be the same point
