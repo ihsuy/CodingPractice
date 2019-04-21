@@ -48,7 +48,7 @@ struct ListNode
 	ListNode(int x) : val(x), next(nullptr) {}
 };
 
-ListNode* removeElements(ListNode* head, int val) 
+ListNode* removeElements(ListNode* head, int val)
 {	// there are 2 big cases to handle
 
 	// case 1: when the linkedlist begin with "val"
@@ -82,7 +82,7 @@ ListNode* removeElements(ListNode* head, int val)
 
 		// we reach at the end, algorithm terminates
 		if (head->next == nullptr)
-		{	
+		{
 			break;
 		}
 
@@ -94,6 +94,46 @@ ListNode* removeElements(ListNode* head, int val)
 
 	return temp;
 }
+
+ListNode* removeElements2(ListNode* head, int val)
+{	// more concise
+	// ignore the first element and deal with it at the end
+
+	if (head == nullptr)
+	{	// no more element? return emptry linkedlist
+		return nullptr;
+	}
+
+	auto temp = head;
+	while (head->next != nullptr)
+	{	
+		while (head->next != nullptr and (head->next->val != val))
+		{	
+			head = head->next;
+		}
+
+		if (head->next == nullptr)
+		{
+			break;
+		}
+
+		auto nextnext = head->next->next;
+		delete head->next;
+		head->next = nextnext;
+	}
+
+	// the first element's value was val?
+	// remove it and increment head
+	if(temp->val == val)
+	{
+		auto t = temp;
+		temp = temp->next;
+		delete t;
+	}
+
+	return temp;
+}
+
 int main()
 {
 	ListNode* ll = new ListNode(1);
@@ -106,7 +146,7 @@ int main()
 	// remove all 1s from ll  : 1->2->3->2->1->null
 	// result should look like: 2->3->2->null
 
-	while(result_ll != nullptr)
+	while (result_ll != nullptr)
 	{
 		cout << result_ll->val << "->";
 		result_ll = result_ll->next;
