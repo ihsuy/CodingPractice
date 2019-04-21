@@ -27,7 +27,8 @@ inline void inspect(typename T::iterator i1, typename T::iterator i2) {while (i1
 /////////////////////////////////////////////////////////////
 using namespace std;
 
-int numJewelsInStones(string J, string S) {
+int numJewelsInStones(string J, string S) 
+{
     unordered_set<char> buffer;
     for(int i = 0; i < J.length(); ++i)
     {
