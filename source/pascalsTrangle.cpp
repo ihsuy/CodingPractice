@@ -106,9 +106,24 @@ vector<int> getRow(int n)
     return row;
 }
 
+// solution with minimal extra space usage
+vector<int> getRow(const int& n)
+{
+    vector<int> row(n + 1, 1);
+    for (int u = 1, ri = 1; u <= n; ++u)
+    {
+        for (int i = 1, temp = 1; i < u; temp = ri)
+        {
+            row[i++] = temp + (ri = row[i]);
+        }
+    }
+    return row;
+}
+
 int main()
 {
-
+    auto res = getRow2(33);
+    inspect<vector<int>> (res);
 
     return 0;
 }
