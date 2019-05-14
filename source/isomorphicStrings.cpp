@@ -56,6 +56,22 @@ bool isIsomorphic(string s, string t) {
     return s == t;
 }
 
+bool isIsomorphic_optimal(string s, string t)
+{
+    int encoder1[257] = {0}, encoder2[257] = {0};
+    int code = 0;
+    for (int i = 0; i < s.length(); ++i)
+    {
+        if (encoder1[s[i]] != encoder2[t[i]])
+        {
+            return false;
+        }
+        encoder1[s[i]] = ++code;
+        encoder2[t[i]] = code;
+    }
+    return true;
+}
+
 int main()
 {
 
