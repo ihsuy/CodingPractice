@@ -56,10 +56,9 @@ bool isIsomorphic(string s, string t) {
     return s == t;
 }
 
-bool isIsomorphic_optimal(string s, string t)
+bool isIsomorphic_optimal(const string& s, const string& t)
 {
-    int encoder1[257] = {0}, encoder2[257] = {0};
-    int code = 0;
+    int encoder1[257] = {0}, encoder2[257] = {0}, code = 0;
     for (int i = 0; i < s.length(); ++i)
     {
         if (encoder1[s[i]] != encoder2[t[i]])
@@ -74,7 +73,8 @@ bool isIsomorphic_optimal(string s, string t)
 
 int main()
 {
-
+    cout << isIsomorphic_optimal("paper", "title") << endl;
+    cout << isIsomorphic_optimal("science", "ecneics") << endl;
 
     return 0;
 }
