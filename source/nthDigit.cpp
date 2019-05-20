@@ -34,19 +34,16 @@ int findNthDigit(int n) {
         return n;
     }
     long long k = 9, h = 1, d = 1, s = 9;
-    while (s>0 and s + k * h * 10 * (d + 1) <= n)
+    while (s + k * h * 10 * (d + 1) <= n)
     {
         h *= 10;
         d++;
         s += k * h * d;
     }
-
-    long long l = n - s;
-    assert(l >= 0);
-    long long i = l / (d + 1), j = l % (d + 1);
-    long long b = pow(10, d) + i - (j > 0 ? 0 : 1);
-    long long g = j > 0 ? (d + 1 - j) : 0;
-    while (g>0 and g--)
+    long long l = n - s, i = l / (d + 1), j = l % (d + 1),
+              b = pow(10, d) + i - (j > 0 ? 0 : 1),
+              g = j > 0 ? (d + 1 - j) : 0;
+    while (g--)
     {
         b /= 10;
     }
@@ -55,7 +52,7 @@ int findNthDigit(int n) {
 
 int main()
 {
-    for(int i = 1; i < 100000; ++i)
+    for (int i = 1; i < 100000; ++i)
     {
         cout << findNthDigit(i);
     }
