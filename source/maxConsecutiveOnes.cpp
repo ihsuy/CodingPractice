@@ -80,6 +80,28 @@ int findMaxConsecutiveOnes(const vector<int>& nums)
 	return result;
 }
 
+int findMaxConsecutiveOnes2(vector<int>& nums) 
+{
+	nums.push_back(0);
+	int len = nums.size(), result = 0;
+	for (int i = 0, count = 0; i < len; ++i)
+	{
+		if (nums[i] == 1)
+		{
+			count ++;
+		}
+		else
+		{
+			if (count > result)
+			{
+				result = count;
+			}
+			count = 0;
+		}
+	}
+	return result;
+}
+
 int main()
 {
 	vector<int> v {1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1};
