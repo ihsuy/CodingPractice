@@ -61,6 +61,32 @@ vector<vector<int>> findSubsequences(vector<int>& nums) {
     return vector<vector<int>>(results.begin(), results.end());
 }
 
+// faster version doesn't use set as results container
+// vector<vector<int>> results;
+// void helper(vector<int>& nums, const int& i, vector<int>& s)
+// {
+//     if (s.size() > 1)
+//     {
+//         results.push_back(s);
+//     }
+//     vector<bool> seen(201, false);
+//     for (int j = i; j < nums.size(); ++j)
+//     {
+//         if (not seen[nums[j] + 100] and (s.empty() or s.back() <= nums[j]))
+//         {
+//             seen[nums[j] + 100] = true;
+//             s.push_back(nums[j]);
+//             helper(nums, j + 1, s);
+//             s.pop_back();
+//         }
+//     }
+// }
+// vector<vector<int>> findSubsequences(vector<int>& nums) {
+//     vector<int> s;
+//     helper(nums, 0, s);
+//     return results;
+// }
+
 int main()
 {
     vector<int> nums { -8, 28, 68, -54, 96, 97, 84, -32, 8, -87, 1, -7, -20, 12, 22};
