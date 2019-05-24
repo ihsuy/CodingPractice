@@ -85,9 +85,18 @@ vector<int> deckRevealedIncreasing(vector<int>& deck) {
     return newdeck;
 }
 
-// vector<int> deckRevealedIncreasing2(vector<int>& deck) {
-//     deque<int> deckq;
-// }
+vector<int> deckRevealedIncreasing2(vector<int>& deck) {
+    deque<int> deckq;
+    sort(deck.begin(), deck.end());
+    deckq.push_back(deck.back());
+    for (int i = 2; i <= deck.size(); ++i)
+    {
+        deckq.push_front(deckq.back());
+        deckq.pop_back();
+        deckq.push_front(deck[deck.size() - i]);
+    }
+    return {deckq.begin(), deckq.end()};
+}
 
 int main()
 {
