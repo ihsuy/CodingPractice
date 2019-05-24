@@ -62,15 +62,6 @@ public:
         }
         return root;
     }
-    TreeNode* insertIntoBST(TreeNode* root, int val)
-    {
-        if (not root)
-        {
-            return new TreeNode(val);
-        }
-
-        return insert(root, val);
-    }
 };
 
 int main()
