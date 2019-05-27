@@ -78,16 +78,14 @@ vector<int> sortedSquares(vector<int>& A) {
     int i = first_nonneg - 1, j = first_nonneg;
     while (i >= 0 and j < A.size())
     {
-        auto tempj = A[j] * A[j],
-             tempi = A[i] * A[i];
-        if (tempj < tempi)
+        if (abs(tempj) < abs(tempi))
         {
-            res.push_back(tempj);
+            res.push_back(A[j] * A[j]);
             j++;
         }
         else
         {
-            res.push_back(tempi);
+            res.push_back(A[i] * A[i]);
             i--;
         }
     }
