@@ -48,16 +48,6 @@ Note:
 
 */
 
-struct Key
-{
-    int freq; 
-    int ch;
-
-    bool operator<(const Key &k) const
-    {
-        return freq < k.freq;
-    }
-};
 
 vector<int> rearrangeBarcodes(vector<int>& barcodes)
 {
@@ -65,54 +55,51 @@ vector<int> rearrangeBarcodes(vector<int>& barcodes)
     {
         return barcodes;
     }
-    int n = barcodes.size();
 
-    map<int, int> counter;
-    for (int i = 0; i < barcodes.size(); ++i)
+    unordered_map<int, int> counter;
+    for (auto& item : barcodes)
     {
-        if (counter.count(barcodes[i]))
+        if (counter.count(item))
         {
-            counter[barcodes[i]]++;
+            counter[item]++;
         }
         else
         {
-            counter[barcodes[i]] = 1;
+            counter[item] = 1;
         }
     }
 
-    priority_queue< Key > pq;
-
-    for (auto& item : counter)
+    priority_queue<pair<int, int>> pq;
+    for(auto& p : counter)
     {
-        pq.push(Key{item.second, item.first});
+        pq.push({p.second, p.first});
     }
-
+    pair<int, int> prev = {0, 0};
     vector<int> res;
-
-    Key prev { -1, 0} ;
-
-    while (!pq.empty())
+    res.reserve(barcodes.size());
+    while(not pq.empty())
     {
-        Key k = pq.top();
+        pair<int, int> top = pq.top();
         pq.pop();
-        res.push_back(k.ch);
 
-        if (prev.freq > 0)
+        res.push_back(top.second);
+
+        if(prev.first>0)
+        {
             pq.push(prev);
-
-        (k.freq)--;
-        prev = k;
+        }
+        
+        top.first--;
+        prev = top;
     }
-
-    if (n != barcodes.size())
-        return barcodes;
-
     return res;
 }
 
 int main()
 {
-
+    vector<int> nums{1,1,1,1,2,2,3,3};
+    auto res = rearrangeBarcodes(nums);
+    inspect<vector<int>>(res);
 
     return 0;
 }
