@@ -71,12 +71,12 @@ void chigiru(TreeNode* root, vector<int>& leafs)
     bool leftIsLeaf = isLeaf(root->left),
          rightIsLeaf = isLeaf(root->right);
     if (leftIsLeaf)
-    {
+    {   // remove leaf (better if we delete it)
         leafs.push_back(root->left->val);
         root->left = nullptr;
     }
     else
-    {
+    {   // go deeper to find leaf nodes
         chigiru(root->left, leafs);
     }
     if (rightIsLeaf)
