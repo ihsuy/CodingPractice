@@ -59,7 +59,7 @@ void deepcopy(Node*& head, Node*& cp, unordered_map<Node*, Node*>& copyof)
     deepcopy(head->next, cp->next, copyof);
     deepcopy(head->random, cp->random, copyof);
 }
-Node* copyRandomList(Node* head) 
+Node* copyRandomList(Node* head)
 {
     if (not head)
     {
@@ -72,8 +72,29 @@ Node* copyRandomList(Node* head)
     return cp;
 }
 
-// iterative
+// iterative (hence faster)
+Node* copyRandomList(Node* head) {
+    if (not head)
+    {
+        return nullptr;
+    }
 
+    unordered_map<Node*, Node*> copyof;
+    auto h = head;
+    while (h)
+    {
+        copyof[h] = new Node(h->val, nullptr, nullptr);
+        h = h->next;
+    }
+    h = head;
+    while (h)
+    {
+        copyof[h]->next = copyof[h->next];
+        copyof[h]->random = copyof[h->random];
+        h = h->next;
+    }
+    return copyof[head];
+}
 
 int main()
 {
