@@ -73,7 +73,7 @@ vector<int> findErrorNums(vector<int>& nums) {
     }
     // now x2 and x3 must be either a or b
     // and if x2 is not found in nums, it must be b
-    // and a otherwise
+    // otherwise its a
     if (nums.end() == find(nums.begin(), nums.end(), x2))
     {
         return {x3, x2};
