@@ -61,19 +61,29 @@ The sum of the heights of the 3 shelves are 1 + 3 + 2 = 6.
 Notice that book number 2 does not have to be on the first shelf.
 */
 
+// memorization
 vector<vector<int>> buffer{vector<vector<int>>(1001, vector<int>(1001, -1))};
+
+// DFS
+// every step, there're 2 options for our next move, 
+// namely, include the current book in the same shelf level 
+// or to put it on a new level
 int search(vector<vector<int>>& books,
            const int& width,
            const int& i,
            const int& maxh,
            const int& w) {
+	// we return the max height since there's no more to add
     if (i == books.size()) {
         return maxh;
     }
+	// use memorization if its available
     if (buffer[i][w] != -1) {
         return buffer[i][w];
     }
+	// two choices
     auto res1 = maxh + search(books, width, i + 1, books[i][1], books[i][0]);
+	// use INT_MAX to simplify control flow
     auto res2 = (w + books[i][0] > width)
                     ? INT_MAX
                     : search(books, width, i + 1, max(maxh, books[i][1]),
