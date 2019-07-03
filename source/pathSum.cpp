@@ -1,25 +1,32 @@
-#include <iostream>
-#include <vector>
-#include <unordered_set>
-#include <unordered_map>
-#include <set>
-#include <map>
-#include <list>
-#include <chrono>
-#include <random>
-#include <algorithm>
 #include <math.h>
-#include <queue>
-#include <stack>
-#include <sstream>
-#include <utility>
+#include <algorithm>
 #include <bitset>
+#include <chrono>
 #include <fstream>
+#include <iostream>
+#include <list>
+#include <map>
+#include <queue>
+#include <random>
+#include <set>
+#include <sstream>
+#include <stack>
 #include <string>
+#include <unordered_map>
+#include <unordered_set>
+#include <utility>
+#include <vector>
 
 typedef long long ll;
-template<typename T>
-inline void inspect(T& t) {typename T::iterator i1 = t.begin(), i2 = t.end(); while (i1 != i2) {std::cout << (*i1) << ' '; i1++;} std::cout << '\n';}
+template <typename T>
+inline void inspect(T& t) {
+    typename T::iterator i1 = t.begin(), i2 = t.end();
+    while (i1 != i2) {
+        std::cout << (*i1) << ' ';
+        i1++;
+    }
+    std::cout << '\n';
+}
 
 /////////////////////////////////////////////////////////////
 using namespace std;
@@ -45,22 +52,18 @@ return true, as there exist a root-to-leaf
 path 5->4->11->2 which sum is 22.
 */
 
-bool hasPathSum(TreeNode* root, int sum, const int& temp = 0)
-{
-    if (not root)
-    {
+bool hasPathSum(TreeNode* root, int sum, const int& temp = 0) {
+    if (not root) {
         return false;
     }
-    if (not root->left and not root->right)
-    {
+    if (not root->left and not root->right) {
         return temp + root->val == sum;
     }
-    return hasPathSum(root->left, sum, temp + root->val)
-           or hasPathSum(root->right, sum, temp + root->val);
+    return hasPathSum(root->left, sum, temp + root->val) or
+           hasPathSum(root->right, sum, temp + root->val);
 }
 
-int main()
-{
+int main() {
     // test cases omitted
 
     return 0;

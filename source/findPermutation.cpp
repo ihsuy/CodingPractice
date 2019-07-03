@@ -1,25 +1,32 @@
-#include <iostream>
-#include <vector>
-#include <unordered_set>
-#include <unordered_map>
-#include <set>
-#include <map>
-#include <list>
-#include <chrono>
-#include <random>
-#include <algorithm>
 #include <math.h>
-#include <queue>
-#include <stack>
-#include <sstream>
-#include <utility>
+#include <algorithm>
 #include <bitset>
+#include <chrono>
 #include <fstream>
+#include <iostream>
+#include <list>
+#include <map>
+#include <queue>
+#include <random>
+#include <set>
+#include <sstream>
+#include <stack>
 #include <string>
+#include <unordered_map>
+#include <unordered_set>
+#include <utility>
+#include <vector>
 
 typedef long long ll;
-template<typename T>
-inline void inspect(T& t) {typename T::iterator i1 = t.begin(), i2 = t.end(); while (i1 != i2) {std::cout << (*i1) << ' '; i1++;} std::cout << '\n';}
+template <typename T>
+inline void inspect(T& t) {
+    typename T::iterator i1 = t.begin(), i2 = t.end();
+    while (i1 != i2) {
+        std::cout << (*i1) << ' ';
+        i1++;
+    }
+    std::cout << '\n';
+}
 
 /////////////////////////////////////////////////////////////
 using namespace std;
@@ -55,21 +62,16 @@ but since we want to find the one with the smallest
 lexicographical permutation, you need to output [2,1,3]
 */
 
-vector<int> findPermutation(const string& s) 
-{
+vector<int> findPermutation(const string& s) {
     int len = s.length() + 1;
     vector<int> nums(len, 1);
-    for (int i = 1; i < len; ++i)
-    {
+    for (int i = 1; i < len; ++i) {
         nums[i] += nums[i - 1];
     }
 
-    for (int i = 0, prev = 0; i < s.length(); ++i)
-    {
-        if (i == s.length() - 1 or s[i] != s[i + 1])
-        {
-            if (s[i] == 'D')
-            {
+    for (int i = 0, prev = 0; i < s.length(); ++i) {
+        if (i == s.length() - 1 or s[i] != s[i + 1]) {
+            if (s[i] == 'D') {
                 reverse(nums.begin() + prev, nums.begin() + i + 2);
             }
             prev = i + 1;
@@ -79,8 +81,7 @@ vector<int> findPermutation(const string& s)
     return nums;
 }
 
-int main()
-{
+int main() {
     string s = "DDIDD";
     auto res = findPermutation(s);
     inspect<vector<int>>(res);

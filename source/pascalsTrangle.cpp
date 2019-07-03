@@ -1,25 +1,32 @@
-#include <iostream>
-#include <vector>
-#include <unordered_set>
-#include <unordered_map>
-#include <set>
-#include <map>
-#include <list>
-#include <chrono>
-#include <random>
-#include <algorithm>
 #include <math.h>
-#include <queue>
-#include <stack>
-#include <sstream>
-#include <utility>
+#include <algorithm>
 #include <bitset>
+#include <chrono>
 #include <fstream>
+#include <iostream>
+#include <list>
+#include <map>
+#include <queue>
+#include <random>
+#include <set>
+#include <sstream>
+#include <stack>
 #include <string>
+#include <unordered_map>
+#include <unordered_set>
+#include <utility>
+#include <vector>
 
 typedef long long ll;
-template<typename T>
-inline void inspect(T& t) {typename T::iterator i1 = t.begin(), i2 = t.end(); while (i1 != i2) {std::cout << (*i1) << ' '; i1++;} std::cout << '\n';}
+template <typename T>
+inline void inspect(T& t) {
+    typename T::iterator i1 = t.begin(), i2 = t.end();
+    while (i1 != i2) {
+        std::cout << (*i1) << ' ';
+        i1++;
+    }
+    std::cout << '\n';
+}
 
 /////////////////////////////////////////////////////////////
 using namespace std;
@@ -41,31 +48,25 @@ Output:
 ]
 */
 
-int getVal(const int& r, const int& c, const vector<vector<int>>& p)
-{
-    if (c == 0 or r == c)
-    {
+int getVal(const int& r, const int& c, const vector<vector<int>>& p) {
+    if (c == 0 or r == c) {
         return 1;
     }
-    return ((p[r - 1][c - 1] != 0) ? p[r - 1][c - 1] : getVal(r - 1, c - 1, p))
-           + ((p[r - 1][c] != 0) ? p[r - 1][c] : getVal(r - 1, c, p));
+    return ((p[r - 1][c - 1] != 0) ? p[r - 1][c - 1]
+                                   : getVal(r - 1, c - 1, p)) +
+           ((p[r - 1][c] != 0) ? p[r - 1][c] : getVal(r - 1, c, p));
 }
-vector<vector<int>> generate(const int& n)
-{
+vector<vector<int>> generate(const int& n) {
     vector<vector<int>> p;
-    for (int r = 0, uc = 1; r < n; ++r, ++uc)
-    {
+    for (int r = 0, uc = 1; r < n; ++r, ++uc) {
         vector<int> layer;
-        for (int c = 0; c < uc; ++c)
-        {
+        for (int c = 0; c < uc; ++c) {
             layer.push_back(0);
         }
         p.push_back(layer);
     }
-    for (int r = 0, uc = 1; r < n; ++r, ++uc)
-    {
-        for (int c = 0; c < uc; ++c)
-        {
+    for (int r = 0, uc = 1; r < n; ++r, ++uc) {
+        for (int c = 0; c < uc; ++c) {
             p[r][c] = getVal(r, c, p);
         }
     }
@@ -79,7 +80,8 @@ index row of the Pascal's triangle.
 Note that the row index starts from 0.
 
 
-In Pascal's triangle, each number is the sum of the two numbers directly above it.
+In Pascal's triangle, each number is the sum of the two numbers directly above
+it.
 
 Example:
 
@@ -90,40 +92,33 @@ Follow up:
 Could you optimize your algorithm to use only O(k) extra space?
 */
 
-vector<int> getRow(int n)
-{
-    if (n == 0)
-    {
+vector<int> getRow(int n) {
+    if (n == 0) {
         return {1};
     }
     vector<int> row(n + 1, 0);
     row[0] = 1, row.back() = 1;
     auto prev = getRow(n - 1);
-    for (int i = 1; i < n; ++i)
-    {
+    for (int i = 1; i < n; ++i) {
         row[i] = prev[i - 1] + prev[i];
     }
     return row;
 }
 
 // solution with minimal extra space usage
-vector<int> getRow(const int& n)
-{
+vector<int> getRow(const int& n) {
     vector<int> row(n + 1, 1);
-    for (int u = 1, ri = 1; u <= n; ++u)
-    {
-        for (int i = 1, temp = 1; i < u; temp = ri)
-        {
+    for (int u = 1, ri = 1; u <= n; ++u) {
+        for (int i = 1, temp = 1; i < u; temp = ri) {
             row[i++] = temp + (ri = row[i]);
         }
     }
     return row;
 }
 
-int main()
-{
+int main() {
     auto res = getRow2(33);
-    inspect<vector<int>> (res);
+    inspect<vector<int>>(res);
 
     return 0;
 }

@@ -1,25 +1,32 @@
-#include <iostream>
-#include <vector>
-#include <unordered_set>
-#include <unordered_map>
-#include <set>
-#include <map>
-#include <list>
-#include <chrono>
-#include <random>
-#include <algorithm>
 #include <math.h>
-#include <queue>
-#include <stack>
-#include <sstream>
-#include <utility>
+#include <algorithm>
 #include <bitset>
+#include <chrono>
 #include <fstream>
+#include <iostream>
+#include <list>
+#include <map>
+#include <queue>
+#include <random>
+#include <set>
+#include <sstream>
+#include <stack>
 #include <string>
+#include <unordered_map>
+#include <unordered_set>
+#include <utility>
+#include <vector>
 
 typedef long long ll;
-template<typename T>
-inline void inspect(T& t) {typename T::iterator i1 = t.begin(), i2 = t.end(); while (i1 != i2) {std::cout << (*i1) << ' '; i1++;} std::cout << '\n';}
+template <typename T>
+inline void inspect(T& t) {
+    typename T::iterator i1 = t.begin(), i2 = t.end();
+    while (i1 != i2) {
+        std::cout << (*i1) << ' ';
+        i1++;
+    }
+    std::cout << '\n';
+}
 
 /////////////////////////////////////////////////////////////
 using namespace std;
@@ -29,9 +36,11 @@ You are given a binary tree in which each node contains an integer value.
 
 Find the number of paths that sum to a given value.
 
-The path does not need to start or end at the root or a leaf, but it must go downwards (traveling only from parent nodes to child nodes).
+The path does not need to start or end at the root or a leaf, but it must go
+downwards (traveling only from parent nodes to child nodes).
 
-The tree has no more than 1,000 nodes and the values are in the range -1,000,000 to 1,000,000.
+The tree has no more than 1,000 nodes and the values are in the range -1,000,000
+to 1,000,000.
 
 Example:
 
@@ -53,21 +62,16 @@ Return 3. The paths that sum to 8 are:
 */
 
 int res = 0;
-void search(TreeNode* root, const int& sum, vector<int>& path)
-{
-    if (not root)
-    {
+void search(TreeNode* root, const int& sum, vector<int>& path) {
+    if (not root) {
         return;
     }
-    if (root->val == sum)
-    {
+    if (root->val == sum) {
         res++;
     }
-    for (int i = path.size() - 1, s = root->val; i >= 0; --i)
-    {
+    for (int i = path.size() - 1, s = root->val; i >= 0; --i) {
         s += path[i];
-        if (s == sum)
-        {
+        if (s == sum) {
             res++;
         }
     }
@@ -82,9 +86,6 @@ int pathSum(TreeNode* root, int sum) {
     return res;
 }
 
-int main()
-{
-
-
+int main() {
     return 0;
 }

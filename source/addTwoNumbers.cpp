@@ -1,216 +1,181 @@
-#include<iostream>
-
+#include <iostream>
 
 using namespace std;
 
-struct ListNode
-{
-	int val;
-	ListNode *next;
-	ListNode(int x) : val(x), next(NULL) {}
+struct ListNode {
+    int val;
+    ListNode* next;
+    ListNode(int x) : val(x), next(NULL) {}
 };
 
-void appendToEnd(ListNode* head, const int& val)
-{
-	auto temp_head = head;
-	while (temp_head->next != nullptr)
-	{
-		temp_head = temp_head->next;
-	}
-	temp_head->next = new ListNode(val);
+void appendToEnd(ListNode* head, const int& val) {
+    auto temp_head = head;
+    while (temp_head->next != nullptr) {
+        temp_head = temp_head->next;
+    }
+    temp_head->next = new ListNode(val);
 }
 
-ListNode* addTwoNumbers(ListNode* l1, ListNode* l2)
-{	// a much shorter and cleaner version
-	ListNode* result = new ListNode(-1);
-	ListNode* temp = result;
+ListNode* addTwoNumbers(ListNode* l1,
+                        ListNode* l2) {  // a much shorter and cleaner version
+    ListNode* result = new ListNode(-1);
+    ListNode* temp = result;
 
-	int carry = 0;
+    int carry = 0;
 
-	while (l1 != nullptr and l2 != nullptr)
-	{
-		int val = l1->val + l2->val + carry;
+    while (l1 != nullptr and l2 != nullptr) {
+        int val = l1->val + l2->val + carry;
 
-		carry = val / 10;
-		val %= 10;
+        carry = val / 10;
+        val %= 10;
 
-		temp->next = new ListNode(val);
-		temp = temp->next;
+        temp->next = new ListNode(val);
+        temp = temp->next;
 
-		l1 = l1->next;
-		l2 = l2->next;
-	}
+        l1 = l1->next;
+        l2 = l2->next;
+    }
 
-	if (carry == 0)
-	{
-		temp->next = (l1 == nullptr) ? l2 : l1;
-	}
-	else
-	{
-		ListNode* extra = (l1 == nullptr) ? l2 : l1;
+    if (carry == 0) {
+        temp->next = (l1 == nullptr) ? l2 : l1;
+    } else {
+        ListNode* extra = (l1 == nullptr) ? l2 : l1;
 
-		while (extra != nullptr)
-		{
-			int val = extra->val + carry;
-			carry = val / 10;
-			val %= 10;
+        while (extra != nullptr) {
+            int val = extra->val + carry;
+            carry = val / 10;
+            val %= 10;
 
-			temp->next = new ListNode(val);
-			temp = temp->next;
+            temp->next = new ListNode(val);
+            temp = temp->next;
 
-			extra = extra->next;
-		}
-		if(carry != 0)
-		{
-			temp->next = new ListNode(1);
-		}
-	}
+            extra = extra->next;
+        }
+        if (carry != 0) {
+            temp->next = new ListNode(1);
+        }
+    }
 
-	return result->next;
+    return result->next;
 }
 
-ListNode* addTwoNumbers_badVersion(ListNode* l1, ListNode* l2)
-{
-	ListNode *temp1 = l1, *temp2 = l2;
+ListNode* addTwoNumbers_badVersion(ListNode* l1, ListNode* l2) {
+    ListNode *temp1 = l1, *temp2 = l2;
 
-	int len1 = 0, len2 = 0;
+    int len1 = 0, len2 = 0;
 
-	while (temp1 != nullptr)
-	{
-		len1++;
-		temp1 = temp1->next;
-	}
+    while (temp1 != nullptr) {
+        len1++;
+        temp1 = temp1->next;
+    }
 
-	while (temp2 != nullptr)
-	{
-		len2++;
-		temp2 = temp2->next;
-	}
+    while (temp2 != nullptr) {
+        len2++;
+        temp2 = temp2->next;
+    }
 
-	if (len1 > len2)
-	{
-		temp1 = l1;
-		temp2 = l2;
-	}
-	else
-	{
-		auto temp = len1;
-		len1 = len2;
-		len2 = temp;
+    if (len1 > len2) {
+        temp1 = l1;
+        temp2 = l2;
+    } else {
+        auto temp = len1;
+        len1 = len2;
+        len2 = temp;
 
-		temp1 = l2;
-		temp2 = l1;
-	}
+        temp1 = l2;
+        temp2 = l1;
+    }
 
-	// temp1 is longer temp2 is shorter
-	ListNode* result = nullptr;
+    // temp1 is longer temp2 is shorter
+    ListNode* result = nullptr;
 
-	int carry = 0;
-	int partial_sum = 0;
+    int carry = 0;
+    int partial_sum = 0;
 
-	while (temp2 != nullptr)
-	{
-		// temp step, doesn't decide paritial sum's final value
-		partial_sum = temp1->val + temp2->val + carry;
+    while (temp2 != nullptr) {
+        // temp step, doesn't decide paritial sum's final value
+        partial_sum = temp1->val + temp2->val + carry;
 
-		// final values
-		carry = partial_sum / 10;
-		partial_sum %= 10;
+        // final values
+        carry = partial_sum / 10;
+        partial_sum %= 10;
 
-		if (result == nullptr)
-		{	// creating the head of the list
-			result = new ListNode(partial_sum);
-		}
-		else
-		{
-			appendToEnd(result, partial_sum);
-		}
+        if (result == nullptr) {  // creating the head of the list
+            result = new ListNode(partial_sum);
+        } else {
+            appendToEnd(result, partial_sum);
+        }
 
-		temp1 = temp1->next;
-		temp2 = temp2->next;
-	}
+        temp1 = temp1->next;
+        temp2 = temp2->next;
+    }
 
-	if (len1 == len2 and carry != 0)
-	{
-		appendToEnd(result, carry);
-	}
-	else if (len1 > len2)
-	{
-		while (temp1 != nullptr)
-		{
-			partial_sum = temp1->val + carry;
+    if (len1 == len2 and carry != 0) {
+        appendToEnd(result, carry);
+    } else if (len1 > len2) {
+        while (temp1 != nullptr) {
+            partial_sum = temp1->val + carry;
 
-			// final values
-			carry = partial_sum / 10;
-			partial_sum %= 10;
+            // final values
+            carry = partial_sum / 10;
+            partial_sum %= 10;
 
-			appendToEnd(result, partial_sum);
+            appendToEnd(result, partial_sum);
 
-			temp1 = temp1->next;
-		}
-		if(carry != 0)
-		{
-			appendToEnd(result, carry);
-		}
-	}
+            temp1 = temp1->next;
+        }
+        if (carry != 0) {
+            appendToEnd(result, carry);
+        }
+    }
 
-	return result;
+    return result;
 }
 
-void showll(ListNode* head)
-{
-	auto temp = head;
-	while(temp != nullptr)
-	{
-		cout << temp->val << "->";
-		temp = temp->next;
-	}
-	cout << "null" << endl;
+void showll(ListNode* head) {
+    auto temp = head;
+    while (temp != nullptr) {
+        cout << temp->val << "->";
+        temp = temp->next;
+    }
+    cout << "null" << endl;
 }
 
-int chtoi(const char& c)
-{
-	return c-'0';
+int chtoi(const char& c) {
+    return c - '0';
 }
 
-ListNode* itoll(const string& num)
-{
-	ListNode* result;
-	ListNode* temp;
-	for(int i = num.length()-1; i >= 0; --i)
-	{
-		if(i == num.length()-1)
-		{
-			result = new ListNode(chtoi(num[i]));
-			temp = result;
-		}
-		else
-		{
-			temp->next = new ListNode(chtoi(num[i]));
-			temp = temp->next;
-		}
-	}
+ListNode* itoll(const string& num) {
+    ListNode* result;
+    ListNode* temp;
+    for (int i = num.length() - 1; i >= 0; --i) {
+        if (i == num.length() - 1) {
+            result = new ListNode(chtoi(num[i]));
+            temp = result;
+        } else {
+            temp->next = new ListNode(chtoi(num[i]));
+            temp = temp->next;
+        }
+    }
 
-	return result;
+    return result;
 }
 
-int main()
-{	
-	const string n1 = "9999999999";
-	const string n2 = "314159261478923";
+int main() {
+    const string n1 = "9999999999";
+    const string n2 = "314159261478923";
 
-	ListNode* l1 = itoll(n1);
-	ListNode* l2 = itoll(n2);
+    ListNode* l1 = itoll(n1);
+    ListNode* l2 = itoll(n2);
 
-	showll(l1);
-	showll(l2);
+    showll(l1);
+    showll(l2);
 
-	cout << "adding..." << endl;
+    cout << "adding..." << endl;
 
-	ListNode* l3 = addTwoNumbers(l1, l2);
+    ListNode* l3 = addTwoNumbers(l1, l2);
 
-	showll(l3);
+    showll(l3);
 
-
-	return 0;
+    return 0;
 }

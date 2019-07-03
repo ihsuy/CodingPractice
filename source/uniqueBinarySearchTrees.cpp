@@ -63,22 +63,21 @@ struct TreeNode {
     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
 
-// for any specific range of numbers, we choose every number as "root" of the tree
-// and try to add its left&right subtrees
-// since its BST we are dealing with, 
-// left subtrees are only made of numbers that are smaller than "root"'s value
-// and right subtrees are made of larger values
-// we build our trees following this logic
+// for any specific range of numbers, we choose every number as "root" of the
+// tree and try to add its left&right subtrees since its BST we are dealing
+// with, left subtrees are only made of numbers that are smaller than "root"'s
+// value and right subtrees are made of larger values we build our trees
+// following this logic
 vector<TreeNode*> makeTrees(const int& begin, const int& end) {
-	// no more number left, return nullptr
+    // no more number left, return nullptr
     if (begin > end) {
         return {nullptr};
     }
     vector<TreeNode*> t;
     for (int i = begin; i <= end; ++i) {
-		// chooce value i to be root, and get possible left and right subtrees
+        // chooce value i to be root, and get possible left and right subtrees
         auto left = makeTrees(begin, i - 1), right = makeTrees(i + 1, end);
-		// iterate through all possible combinations
+        // iterate through all possible combinations
         for (int a = 0; a < left.size(); ++a) {
             for (int b = 0; b < right.size(); ++b) {
                 TreeNode* root = new TreeNode(i);

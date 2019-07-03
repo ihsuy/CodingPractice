@@ -1,25 +1,32 @@
-#include <iostream>
-#include <vector>
-#include <unordered_set>
-#include <unordered_map>
-#include <set>
-#include <map>
-#include <list>
-#include <chrono>
-#include <random>
-#include <algorithm>
 #include <math.h>
-#include <queue>
-#include <stack>
-#include <sstream>
-#include <utility>
+#include <algorithm>
 #include <bitset>
+#include <chrono>
 #include <fstream>
+#include <iostream>
+#include <list>
+#include <map>
+#include <queue>
+#include <random>
+#include <set>
+#include <sstream>
+#include <stack>
 #include <string>
+#include <unordered_map>
+#include <unordered_set>
+#include <utility>
+#include <vector>
 
 typedef long long ll;
-template<typename T>
-inline void inspect(T& t) {typename T::iterator i1 = t.begin(), i2 = t.end(); while (i1 != i2) {std::cout << (*i1) << ' '; i1++;} std::cout << '\n';}
+template <typename T>
+inline void inspect(T& t) {
+    typename T::iterator i1 = t.begin(), i2 = t.end();
+    while (i1 != i2) {
+        std::cout << (*i1) << ' ';
+        i1++;
+    }
+    std::cout << '\n';
+}
 
 /////////////////////////////////////////////////////////////
 using namespace std;
@@ -27,7 +34,8 @@ using namespace std;
 /*
 On a N * N grid, we place some 1 * 1 * 1 cubes.
 
-Each value v = grid[i][j] represents a tower of v cubes placed on top of grid cell (i, j).
+Each value v = grid[i][j] represents a tower of v cubes placed on top of grid
+cell (i, j).
 
 Return the total surface area of the resulting shapes.
 
@@ -51,25 +59,18 @@ Input: [[1,1,1],[1,0,1],[1,1,1]]
 Output: 32
 */
 
-int dir[5] = { -1, 0, 1, 0, -1};
+int dir[5] = {-1, 0, 1, 0, -1};
 int surfaceArea(vector<vector<int>>& grid) {
     int w = grid.size(), c = 0;
-    for (int i = 0; i < w; ++i)
-    {
-        for (int j = 0; j < w; ++j)
-        {
-            if (grid[i][j])
-            {
+    for (int i = 0; i < w; ++i) {
+        for (int j = 0; j < w; ++j) {
+            if (grid[i][j]) {
                 c += 2;
-                for (int d = 0; d < 4; ++d)
-                {
+                for (int d = 0; d < 4; ++d) {
                     int nr = i + dir[d], nc = j + dir[d + 1];
-                    if (nr<0 or nc<0 or nr >= w or nc >= w)
-                    {
+                    if (nr < 0 or nc < 0 or nr >= w or nc >= w) {
                         c += grid[i][j];
-                    }
-                    else if (grid[i][j] > grid[nr][nc])
-                    {
+                    } else if (grid[i][j] > grid[nr][nc]) {
                         c += (grid[i][j] - grid[nr][nc]);
                     }
                 }
@@ -79,9 +80,6 @@ int surfaceArea(vector<vector<int>>& grid) {
     return c;
 }
 
-int main()
-{
-
-
+int main() {
     return 0;
 }

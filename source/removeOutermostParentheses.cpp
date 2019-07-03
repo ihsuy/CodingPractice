@@ -1,64 +1,76 @@
-#include <iostream>
-#include <vector>
-#include <unordered_set>
-#include <unordered_map>
-#include <set>
-#include <map>
-#include <list>
-#include <chrono>
-#include <random>
-#include <algorithm>
 #include <math.h>
-#include <queue>
-#include <stack>
-#include <sstream>
-#include <utility>
+#include <algorithm>
 #include <bitset>
+#include <chrono>
 #include <fstream>
+#include <iostream>
+#include <list>
+#include <map>
+#include <queue>
+#include <random>
+#include <set>
+#include <sstream>
+#include <stack>
 #include <string>
+#include <unordered_map>
+#include <unordered_set>
+#include <utility>
+#include <vector>
 
 typedef long long ll;
-template<typename T>
-inline void inspect(T& t) {typename T::iterator i1 = t.begin(), i2 = t.end(); while (i1 != i2) {std::cout << (*i1) << ' '; i1++;} std::cout << '\n';}
+template <typename T>
+inline void inspect(T& t) {
+    typename T::iterator i1 = t.begin(), i2 = t.end();
+    while (i1 != i2) {
+        std::cout << (*i1) << ' ';
+        i1++;
+    }
+    std::cout << '\n';
+}
 
 /////////////////////////////////////////////////////////////
 using namespace std;
 
 /*
-A valid parentheses string is either empty (""), "(" + A + ")", 
-or A + B, where A and B are valid parentheses strings, and + represents string concatenation.  For example, "", "()", "(())()", and "(()(()))" are all valid parentheses strings.
+A valid parentheses string is either empty (""), "(" + A + ")",
+or A + B, where A and B are valid parentheses strings, and + represents string
+concatenation.  For example, "", "()", "(())()", and "(()(()))" are all valid
+parentheses strings.
 
-A valid parentheses string S is primitive if it is nonempty, 
-and there does not exist a way to split it into S = A+B, with A and B nonempty valid parentheses strings.
+A valid parentheses string S is primitive if it is nonempty,
+and there does not exist a way to split it into S = A+B, with A and B nonempty
+valid parentheses strings.
 
-Given a valid parentheses string S, consider its primitive decomposition: S = P_1 + P_2 + ... + P_k, where P_i are primitive valid parentheses strings.
+Given a valid parentheses string S, consider its primitive decomposition: S =
+P_1 + P_2 + ... + P_k, where P_i are primitive valid parentheses strings.
 
-Return S after removing the outermost parentheses of every primitive string in the primitive decomposition of S.
+Return S after removing the outermost parentheses of every primitive string in
+the primitive decomposition of S.
 
- 
+
 
 Example 1:
 
 Input: "(()())(())"
 Output: "()()()"
-Explanation: 
-The input string is "(()())(())", with primitive decomposition "(()())" + "(())".
-After removing outer parentheses of each part, this is "()()" + "()" = "()()()".
-Example 2:
+Explanation:
+The input string is "(()())(())", with primitive decomposition "(()())" +
+"(())". After removing outer parentheses of each part, this is "()()" + "()" =
+"()()()". Example 2:
 
 Input: "(()())(())(()(()))"
 Output: "()()()()(())"
-Explanation: 
-The input string is "(()())(())(()(()))", with primitive decomposition "(()())" + "(())" + "(()(()))".
-After removing outer parentheses of each part, this is "()()" + "()" + "()(())" = "()()()()(())".
-Example 3:
+Explanation:
+The input string is "(()())(())(()(()))", with primitive decomposition "(()())"
++ "(())" + "(()(()))". After removing outer parentheses of each part, this is
+"()()" + "()" + "()(())" = "()()()()(())". Example 3:
 
 Input: "()()"
 Output: ""
-Explanation: 
+Explanation:
 The input string is "()()", with primitive decomposition "()" + "()".
 After removing outer parentheses of each part, this is "" + "" = "".
- 
+
 
 Note:
 
@@ -73,40 +85,28 @@ string removeOuterParentheses(const string& S) {
     result.reserve(S.length());
     vector<int> p;
     p.reserve(S.length());
-    for (int i = 0; i < S.length(); ++i)
-    {
+    for (int i = 0; i < S.length(); ++i) {
         char c = S[i];
-        if (c == '(')
-        {
+        if (c == '(') {
             stk.push({c, i});
-        }
-        else
-        {
-            if (stk.size() == 1)
-            {
+        } else {
+            if (stk.size() == 1) {
                 p.push_back(stk.top().second);
                 p.push_back(i);
             }
             stk.pop();
         }
     }
-    for (int i = 0, j = 0; i < S.length(); ++i)
-    {
-        if (i == p[j])
-        {
+    for (int i = 0, j = 0; i < S.length(); ++i) {
+        if (i == p[j]) {
             j++;
-        }
-        else
-        {
+        } else {
             result += S[i];
         }
     }
     return result;
 }
 
-int main()
-{
-
-
+int main() {
     return 0;
 }

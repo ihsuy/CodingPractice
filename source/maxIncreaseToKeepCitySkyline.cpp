@@ -1,25 +1,32 @@
-#include <iostream>
-#include <vector>
-#include <unordered_set>
-#include <unordered_map>
-#include <set>
-#include <map>
-#include <list>
-#include <chrono>
-#include <random>
-#include <algorithm>
 #include <math.h>
-#include <queue>
-#include <stack>
-#include <sstream>
-#include <utility>
+#include <algorithm>
 #include <bitset>
+#include <chrono>
 #include <fstream>
+#include <iostream>
+#include <list>
+#include <map>
+#include <queue>
+#include <random>
+#include <set>
+#include <sstream>
+#include <stack>
 #include <string>
+#include <unordered_map>
+#include <unordered_set>
+#include <utility>
+#include <vector>
 
 typedef long long ll;
-template<typename T>
-inline void inspect(T& t) {typename T::iterator i1 = t.begin(), i2 = t.end(); while (i1 != i2) {std::cout << (*i1) << ' '; i1++;} std::cout << '\n';}
+template <typename T>
+inline void inspect(T& t) {
+    typename T::iterator i1 = t.begin(), i2 = t.end();
+    while (i1 != i2) {
+        std::cout << (*i1) << ' ';
+        i1++;
+    }
+    std::cout << '\n';
+}
 
 /////////////////////////////////////////////////////////////
 using namespace std;
@@ -62,37 +69,27 @@ gridNew = [ [8, 4, 8, 7],
 
 */
 
-int maxIncreaseKeepingSkyline(vector<vector<int>>& grid)
-{
+int maxIncreaseKeepingSkyline(vector<vector<int>>& grid) {
     int w = grid.size(), result = 0;
     vector<int> slv1(w, -1), slv2(slv1);
-    for (int i = 0; i < w; ++i)
-    {
-        for (int j = 0; j < w; ++j)
-        {
-            if (grid[i][j] > slv1[i])
-            {
+    for (int i = 0; i < w; ++i) {
+        for (int j = 0; j < w; ++j) {
+            if (grid[i][j] > slv1[i]) {
                 slv1[i] = grid[i][j];
             }
-            if (grid[j][i] > slv2[i])
-            {
+            if (grid[j][i] > slv2[i]) {
                 slv2[i] = grid[j][i];
             }
         }
     }
-    for (int i = 0; i < w; ++i)
-    {
-        for (int j = 0; j < w; ++j)
-        {
+    for (int i = 0; i < w; ++i) {
+        for (int j = 0; j < w; ++j) {
             result += (slv2[i] < slv1[j] ? slv2[i] : slv1[j]) - grid[i][j];
         }
     }
     return result;
 }
 
-int main()
-{
-
-
+int main() {
     return 0;
 }

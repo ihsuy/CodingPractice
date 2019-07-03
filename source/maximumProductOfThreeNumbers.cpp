@@ -1,25 +1,32 @@
-#include <iostream>
-#include <vector>
-#include <unordered_set>
-#include <unordered_map>
-#include <set>
-#include <map>
-#include <list>
-#include <chrono>
-#include <random>
-#include <algorithm>
 #include <math.h>
-#include <queue>
-#include <stack>
-#include <sstream>
-#include <utility>
+#include <algorithm>
 #include <bitset>
+#include <chrono>
 #include <fstream>
+#include <iostream>
+#include <list>
+#include <map>
+#include <queue>
+#include <random>
+#include <set>
+#include <sstream>
+#include <stack>
 #include <string>
+#include <unordered_map>
+#include <unordered_set>
+#include <utility>
+#include <vector>
 
 typedef long long ll;
-template<typename T>
-inline void inspect(T& t) {typename T::iterator i1 = t.begin(), i2 = t.end(); while (i1 != i2) {std::cout << (*i1) << ' '; i1++;} std::cout << '\n';}
+template <typename T>
+inline void inspect(T& t) {
+    typename T::iterator i1 = t.begin(), i2 = t.end();
+    while (i1 != i2) {
+        std::cout << (*i1) << ' ';
+        i1++;
+    }
+    std::cout << '\n';
+}
 
 /////////////////////////////////////////////////////////////
 using namespace std;
@@ -40,34 +47,25 @@ Input: [1,2,3,4]
 Output: 24
 */
 
-int maximumProduct(vector<int>& nums)
-{
-    int max1 = INT_MIN, max2 = INT_MIN, max3 = INT_MIN, min1 = INT_MAX, min2 = INT_MAX;
-    for (int i = 0; i < nums.size(); ++i)
-    {
-        if (nums[i] > max1)
-        {
+int maximumProduct(vector<int>& nums) {
+    int max1 = INT_MIN, max2 = INT_MIN, max3 = INT_MIN, min1 = INT_MAX,
+        min2 = INT_MAX;
+    for (int i = 0; i < nums.size(); ++i) {
+        if (nums[i] > max1) {
             max3 = max2;
             max2 = max1;
             max1 = nums[i];
-        }
-        else if (nums[i] > max2)
-        {
+        } else if (nums[i] > max2) {
             max3 = max2;
             max2 = nums[i];
-        }
-        else if (nums[i] > max3)
-        {
+        } else if (nums[i] > max3) {
             max3 = nums[i];
         }
 
-        if (nums[i] < min1)
-        {
+        if (nums[i] < min1) {
             min2 = min1;
             min1 = nums[i];
-        }
-        else if (nums[i] < min2)
-        {
+        } else if (nums[i] < min2) {
             min2 = nums[i];
         }
     }
@@ -75,9 +73,6 @@ int maximumProduct(vector<int>& nums)
     return (mul1 > mul2) ? mul1 * max1 : mul2 * max1;
 }
 
-int main()
-{
-
-
+int main() {
     return 0;
 }

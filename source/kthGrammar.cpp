@@ -61,14 +61,15 @@ row 4: 01101001
 */
 
 int kthGrammar(int N, int K) {
-	// Try to think this problem as if its a binary tree problem
-	// that is, when are actually trying to know the K-th leaf on N th level of a binary tree
-	// Also notice that, if K is odd, then its the same as its "parent", 
-	// since "0"->"01" and "1"->"10", the first number is always the same as the previous number
-	// and if K is even, the number is "flipped"
-	// we could utilize this information to find how many time did the digit "flip"
-	// as we traverse back to the top of the tree
-	// XOR is good at detecting uneven alternations, i used it in the follow solution
+    // Try to think this problem as if its a binary tree problem
+    // that is, when are actually trying to know the K-th leaf on N th level of
+    // a binary tree Also notice that, if K is odd, then its the same as its
+    // "parent", since "0"->"01" and "1"->"10", the first number is always the
+    // same as the previous number and if K is even, the number is "flipped" we
+    // could utilize this information to find how many time did the digit "flip"
+    // as we traverse back to the top of the tree
+    // XOR is good at detecting uneven alternations, i used it in the follow
+    // solution
     if (N == 1)
         return 0;
     return (1 - K % 2) ^ kthGrammar(N - 1, (K + 1) >> 1);

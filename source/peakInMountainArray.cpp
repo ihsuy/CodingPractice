@@ -1,25 +1,32 @@
-#include <iostream>
-#include <vector>
-#include <unordered_set>
-#include <unordered_map>
-#include <set>
-#include <map>
-#include <list>
-#include <chrono>
-#include <random>
-#include <algorithm>
 #include <math.h>
-#include <queue>
-#include <stack>
-#include <sstream>
-#include <utility>
+#include <algorithm>
 #include <bitset>
+#include <chrono>
 #include <fstream>
+#include <iostream>
+#include <list>
+#include <map>
+#include <queue>
+#include <random>
+#include <set>
+#include <sstream>
+#include <stack>
 #include <string>
+#include <unordered_map>
+#include <unordered_set>
+#include <utility>
+#include <vector>
 
 typedef long long ll;
-template<typename T>
-inline void inspect(T& t) {typename T::iterator i1 = t.begin(), i2 = t.end(); while (i1 != i2) {std::cout << (*i1) << ' '; i1++;} std::cout << '\n';}
+template <typename T>
+inline void inspect(T& t) {
+    typename T::iterator i1 = t.begin(), i2 = t.end();
+    while (i1 != i2) {
+        std::cout << (*i1) << ' ';
+        i1++;
+    }
+    std::cout << '\n';
+}
 
 /////////////////////////////////////////////////////////////
 using namespace std;
@@ -36,30 +43,25 @@ return any i such that A[0] < A[1] < ... A[i-1]
 */
 
 int peakIndexInMountainArray1(vector<int>& A) {
-    int i = 0; while (A[i] < A[i++ +1]);
+    int i = 0;
+    while (A[i] < A[i++ + 1])
+        ;
     return i - 1;
 }
 
 int peakIndexInMountainArray2(vector<int>& A) {
     int l = 0;
-    for (int h = A.size() - 1; l < h;)
-    {
+    for (int h = A.size() - 1; l < h;) {
         int mid = (l + h) >> 1;
-        if (A[mid] < A[mid + 1])
-        {
+        if (A[mid] < A[mid + 1]) {
             l = mid + 1;
-        }
-        else
-        {
+        } else {
             h = mid;
         }
     }
     return l;
 }
 
-int main()
-{
-
-
+int main() {
     return 0;
 }

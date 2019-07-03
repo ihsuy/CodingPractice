@@ -1,25 +1,32 @@
-#include <iostream>
-#include <vector>
-#include <unordered_set>
-#include <unordered_map>
-#include <set>
-#include <map>
-#include <list>
-#include <chrono>
-#include <random>
-#include <algorithm>
 #include <math.h>
-#include <queue>
-#include <stack>
-#include <sstream>
-#include <utility>
+#include <algorithm>
 #include <bitset>
+#include <chrono>
 #include <fstream>
+#include <iostream>
+#include <list>
+#include <map>
+#include <queue>
+#include <random>
+#include <set>
+#include <sstream>
+#include <stack>
 #include <string>
+#include <unordered_map>
+#include <unordered_set>
+#include <utility>
+#include <vector>
 
 typedef long long ll;
-template<typename T>
-inline void inspect(T& t) {typename T::iterator i1 = t.begin(), i2 = t.end(); while (i1 != i2) {std::cout << (*i1) << ' '; i1++;} std::cout << '\n';}
+template <typename T>
+inline void inspect(T& t) {
+    typename T::iterator i1 = t.begin(), i2 = t.end();
+    while (i1 != i2) {
+        std::cout << (*i1) << ' ';
+        i1++;
+    }
+    std::cout << '\n';
+}
 
 /////////////////////////////////////////////////////////////
 using namespace std;
@@ -39,34 +46,28 @@ Input:
 Output: 1->1->2->3->4->4->5->6
 */
 
-struct ListNode
-{
+struct ListNode {
     int val;
-    ListNode *next;
+    ListNode* next;
     ListNode(int x) : val(x), next(nullptr) {}
 };
 
-ListNode* mergeKLists(vector<ListNode*>& lists)
-{
+ListNode* mergeKLists(vector<ListNode*>& lists) {
     set<pair<int, ListNode*>> heap;
-    for (int i = 0; i < lists.size(); ++i)
-    {
+    for (int i = 0; i < lists.size(); ++i) {
         auto temp = lists[i];
-        while (temp)
-        {
+        while (temp) {
             heap.insert({temp->val, temp});
             temp = temp->next;
         }
     }
 
-    if (heap.size() == 0)
-    {
+    if (heap.size() == 0) {
         return nullptr;
     }
 
     auto head = heap.begin()->second, tmp = head;
-    for (auto t = next(heap.begin()); t != heap.end(); t = next(t))
-    {
+    for (auto t = next(heap.begin()); t != heap.end(); t = next(t)) {
         tmp->next = t->second;
         tmp = tmp->next;
     }
@@ -74,8 +75,7 @@ ListNode* mergeKLists(vector<ListNode*>& lists)
     return head;
 }
 
-int main()
-{
+int main() {
     // test code omitted
 
     return 0;

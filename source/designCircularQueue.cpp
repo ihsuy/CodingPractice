@@ -1,44 +1,58 @@
-#include <iostream>
-#include <vector>
-#include <unordered_set>
-#include <unordered_map>
-#include <set>
-#include <map>
-#include <list>
-#include <chrono>
-#include <random>
-#include <algorithm>
 #include <math.h>
-#include <queue>
-#include <stack>
-#include <sstream>
-#include <utility>
+#include <algorithm>
 #include <bitset>
+#include <chrono>
 #include <fstream>
+#include <iostream>
+#include <list>
+#include <map>
+#include <queue>
+#include <random>
+#include <set>
+#include <sstream>
+#include <stack>
 #include <string>
+#include <unordered_map>
+#include <unordered_set>
+#include <utility>
+#include <vector>
 
 typedef long long ll;
-template<typename T>
-inline void inspect(T& t){typename T::iterator i1 = t.begin(), i2 = t.end(); while (i1 != i2) {std::cout << (*i1) << ' '; i1++;} std::cout << '\n';}
+template <typename T>
+inline void inspect(T& t) {
+    typename T::iterator i1 = t.begin(), i2 = t.end();
+    while (i1 != i2) {
+        std::cout << (*i1) << ' ';
+        i1++;
+    }
+    std::cout << '\n';
+}
 
 /////////////////////////////////////////////////////////////
 using namespace std;
 
 /*
-Design your implementation of the circular queue. The circular queue is a linear data structure in which the operations are performed based on FIFO (First In First Out) principle and the last position is connected back to the first position to make a circle. It is also called "Ring Buffer".
+Design your implementation of the circular queue. The circular queue is a linear
+data structure in which the operations are performed based on FIFO (First In
+First Out) principle and the last position is connected back to the first
+position to make a circle. It is also called "Ring Buffer".
 
-One of the benefits of the circular queue is that we can make use of the spaces in front of the queue. In a normal queue, once the queue becomes full, we cannot insert the next element even if there is a space in front of the queue. But using the circular queue, we can use the space to store new values.
+One of the benefits of the circular queue is that we can make use of the spaces
+in front of the queue. In a normal queue, once the queue becomes full, we cannot
+insert the next element even if there is a space in front of the queue. But
+using the circular queue, we can use the space to store new values.
 
 Your implementation should support following operations:
 
 MyCircularQueue(k): Constructor, set the size of the queue to be k.
 Front: Get the front item from the queue. If the queue is empty, return -1.
 Rear: Get the last item from the queue. If the queue is empty, return -1.
-enQueue(value): Insert an element into the circular queue. Return true if the operation is successful.
-deQueue(): Delete an element from the circular queue. Return true if the operation is successful.
-isEmpty(): Checks whether the circular queue is empty or not.
-isFull(): Checks whether the circular queue is full or not.
- 
+enQueue(value): Insert an element into the circular queue. Return true if the
+operation is successful. deQueue(): Delete an element from the circular queue.
+Return true if the operation is successful. isEmpty(): Checks whether the
+circular queue is empty or not. isFull(): Checks whether the circular queue is
+full or not.
+
 
 Example:
 
@@ -52,7 +66,7 @@ circularQueue.isFull();  // return true
 circularQueue.deQueue();  // return true
 circularQueue.enQueue(4);  // return true
 circularQueue.Rear();  // return 4
- 
+
 Note:
 
 All values will be in the range of [0, 1000].
@@ -61,84 +75,80 @@ Please do not use the built-in Queue library.
 */
 
 class MyCircularQueue {
-public:
-    /** Initialize your data structure here. Set the size of the queue to be k. */
+   public:
+    /** Initialize your data structure here. Set the size of the queue to be k.
+     */
     vector<int> data;
     int low, high, cap, itemCount;
-    MyCircularQueue(int k) : data(k, 0), low(-1), high(-1), cap(k), itemCount(0) {
-        
-    }
-    
+    MyCircularQueue(int k)
+        : data(k, 0), low(-1), high(-1), cap(k), itemCount(0) {}
+
     void show() {
-        cout << "low: " << low << " high: " << high << " itemCount: " << itemCount << endl;
-        for(auto& n : data) {
+        cout << "low: " << low << " high: " << high
+             << " itemCount: " << itemCount << endl;
+        for (auto& n : data) {
             cout << n << ' ';
         }
         cout << '\n';
     }
-    
-    /** Insert an element into the circular queue. Return true if the operation is successful. */
+
+    /** Insert an element into the circular queue. Return true if the operation
+     * is successful. */
     bool enQueue(int value) {
-        if(itemCount==cap) {
+        if (itemCount == cap) {
             return false;
         }
-        if(low==-1) {
+        if (low == -1) {
             low = 0;
         }
-        if(++high == cap) {
-            data[high=0] = value;
+        if (++high == cap) {
+            data[high = 0] = value;
         } else {
             data[high] = value;
         }
         itemCount++;
         return true;
     }
-    
-    /** Delete an element from the circular queue. Return true if the operation is successful. */
+
+    /** Delete an element from the circular queue. Return true if the operation
+     * is successful. */
     bool deQueue() {
-        if(!itemCount) {
+        if (!itemCount) {
             return false;
         }
-        if(++low == cap) {
-            low=0;
+        if (++low == cap) {
+            low = 0;
         }
         itemCount--;
-        if(!itemCount) {
-            low=-1, high=-1;
+        if (!itemCount) {
+            low = -1, high = -1;
         }
         return true;
     }
-    
+
     /** Get the front item from the queue. */
     int Front() {
-        if(!itemCount) {
+        if (!itemCount) {
             return -1;
         }
         return data[low];
     }
-    
+
     /** Get the last item from the queue. */
     int Rear() {
-        if(!itemCount) {
+        if (!itemCount) {
             return -1;
         }
         return data[high];
     }
-    
+
     /** Checks whether the circular queue is empty or not. */
-    bool isEmpty() {
-        return !itemCount;
-    }
-    
+    bool isEmpty() { return !itemCount; }
+
     /** Checks whether the circular queue is full or not. */
-    bool isFull() {
-        return (itemCount==cap);
-    }
+    bool isFull() { return (itemCount == cap); }
 };
 
-int main()
-{
-
-
-	return 0;
+int main() {
+    return 0;
 }
