@@ -18,27 +18,6 @@
 #include <vector>
 
 typedef long long ll;
-inline int two(int n) {
-    return 1 << n;
-}
-inline int test(int n, int b) {
-    return (n >> b) & 1;
-}
-inline void set_bit(int& n, int b) {
-    n |= two(b);
-}
-inline void unset_bit(int& n, int b) {
-    n &= ~two(b);
-}
-inline int last_bit(int n) {
-    return n & (-n);
-}
-inline int ones(int n) {
-    int res = 0;
-    while (n && ++res)
-        n -= n & (-n);
-    return res;
-}
 template <typename T>
 inline void inspect(T& t) {
     typename T::iterator i1 = t.begin(), i2 = t.end();
@@ -53,9 +32,17 @@ inline void inspect(T& t) {
 using namespace std;
 
 /*
-Given a stream of integers and a window size,
-calculate the moving average of all integers in the sliding window.
+Given a stream of integers and a window size, calculate the moving average of all integers in the sliding window.
+
+Example:
+
+MovingAverage m = new MovingAverage(3);
+m.next(1) = 1
+m.next(10) = (1 + 10) / 2
+m.next(3) = (1 + 10 + 3) / 3
+m.next(5) = (10 + 3 + 5) / 3
 */
+
 
 class MovingAverage {
    public:
@@ -76,7 +63,27 @@ class MovingAverage {
         return runningSum / window.size();
     }
 };
+class MovingAverage2 {
+	queue<int> window;
+	const int winSize;
+	int rs = 0;
+public:
+    /** Initialize your data structure here. */
+    
+    MovingAverage2(const int& windowSize):winSize(windowSize) {
+		assert(winSize != 0);
+	}
 
+    double next(int val) {
+        if(window.size()==winSize) {
+			rs -= window.front();
+			window.pop();
+		} 
+		rs += val;
+		window.push(val);
+		return rs/winSize;
+    }
+};
 int main() {
     // MovingAverage m = new MovingAverage(3);
     // m.next(1) = 1
