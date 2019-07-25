@@ -62,31 +62,29 @@ All of them are in the same friend circle, so return 1.
 */
 
 int findCircleNum(vector<vector<int>>& M) {
-    // book keeping every visited person in M
-    unordered_set<int> visited;
     // n is the total number of person in M and M by definition is a nxn square
     // matrix count will be the result to output
     int count = 0, n = M.size();
+    // book keeping every visited person in M
+    auto visited = new bool[n];
+    memset(visited, 0, sizeof(bool) * n);
     // look for new friend circle until every person is visited
     // everytime when a unvisited person is found, greedily search for all
     // his/her friends and mark them as visite, consequently increase count
     // by 1.
-    while (visited.size() != n) {
-        for (int i = 0; i < n; ++i) {
-            if (!visited.count(i)) {
-                count++;
-                queue<int> todo;
-                todo.push(i);
-                visited.insert(i);
-                while (!todo.empty()) {
-                    int person = todo.front();
-                    todo.pop();
-                    for (int j = 0; j < n; ++j) {
-                        // if person friends j and j isn't visited yet
-                        if (M[person][j] && !visited.count(j)) {
-                            todo.push(j);
-                            visited.insert(j);
-                        }
+    for (int i = 0; i < n; ++i) {
+        if (!visited[i]) {
+            count++;
+            queue<int> todo;
+            todo.push(i);
+            visited[i] = true;
+            while (!todo.empty()) {
+                int person = todo.front();
+                todo.pop();
+                for (int j = 0; j < n; ++j) {
+                    if (M[person][j] && !visited[j]) {
+                        todo.push(j);
+                        visited[j] = true;
                     }
                 }
             }
@@ -94,7 +92,6 @@ int findCircleNum(vector<vector<int>>& M) {
     }
     return count;
 }
-
 int main() {
     return 0;
 }
